@@ -55,14 +55,7 @@
       box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
     }
   </style>
-  <!-- /// -->
-  <script type="text/javascript">
-    <!--
-    function appname() {
-      return location.hostname.substring(0, location.hostname.indexOf("."));
-    }
-    // -->
-  </script>
+
 </head>
 
 <body onload="prettyPrint();">
@@ -81,11 +74,9 @@
 </div>
 
 <div class="row">
-<div class="span8 offset2">
   <div class="hero-unit">
     <a href="people/" class="btn btn-primary btn-large">Contacts</a>
   </div>
-</div>
 </div>
 
 </body>
