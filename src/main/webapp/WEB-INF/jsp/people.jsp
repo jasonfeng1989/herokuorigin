@@ -57,12 +57,10 @@
                 <table class="table table-bordered table-striped">
                     <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>&nbsp;</th>
-                        <th>Phone</th>
-                        <th>&nbsp;</th>
+                        <th>Name</th>                     
+                        <th>Phone</th>  
                         <th>Email</th>
-                        <th>&nbsp;</th>
+                        
                     </tr>
                     </thead>
                     <tbody>
