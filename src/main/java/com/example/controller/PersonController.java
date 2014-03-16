@@ -19,7 +19,7 @@ public class PersonController {
     @Autowired
     private PersonService personService;
 
-    @RequestMapping("/people")
+    @RequestMapping("/")
     public String listPeople(Map<String, Object> map) {
 
         map.put("person", new Person());
@@ -28,7 +28,7 @@ public class PersonController {
         return "people";
     }
 
-    @RequestMapping(value = "/people/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String addPerson(@ModelAttribute("person") Person person, BindingResult result) {
 
         personService.addPerson(person);
@@ -36,7 +36,7 @@ public class PersonController {
         return "redirect:/people/";
     }
 
-    @RequestMapping("/people/delete/{personId}")
+    @RequestMapping("/delete/{personId}")
     public String deletePerson(@PathVariable("personId") Integer personId) {
 
         personService.removePerson(personId);
