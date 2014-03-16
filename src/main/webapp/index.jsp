@@ -74,7 +74,7 @@
 </div>
 
 <div class="row">
-  <div class="hero-unit">
+  <div class="hero-unit" style="text-align:center">
     <a href="people/" class="btn btn-primary btn-large">Contacts</a>
   </div>
 </div>

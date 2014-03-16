@@ -36,7 +36,7 @@
     <div class="row">
         <div class="span8 offset2">
             <div class="page-header">
-                <h1>Simple CRUD Page</h1>
+                <h1>Contacts</h1>
             </div>
             <form:form method="post" action="add" commandName="person" class="form-vertical">
 
