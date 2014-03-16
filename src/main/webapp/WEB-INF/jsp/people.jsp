@@ -59,6 +59,10 @@
                     <tr>
                         <th>Name</th>
                         <th>&nbsp;</th>
+                        <th>Phone</th>
+                        <th>&nbsp;</th>
+                        <th>Email</th>
+                        <th>&nbsp;</th>
                     </tr>
                     </thead>
                     <tbody>
