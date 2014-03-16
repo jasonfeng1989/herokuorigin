@@ -60,6 +60,7 @@
                         <th>Name</th>                     
                         <th>Phone</th>  
                         <th>Email</th>
+                        <th>&nbsp;</th>
                         
                     </tr>
                     </thead>
