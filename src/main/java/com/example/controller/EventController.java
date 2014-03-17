@@ -18,10 +18,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class EventController {
 		
-	 @RequestMapping(value = {"event/", "event/"})
+	 @RequestMapping("event/{type}")
 	 @ResponseBody
-	 public void EventHandler(@RequestParam Map<String, String> url, HttpServletResponse response) throws IOException {
-		 response.getWriter().println("url is"+url);
+	 public String EventHandler(@PathVariable(value="type") String type, @RequestParam String url) {
+		 return "url is "+url;
 	 }
 	 
 }
