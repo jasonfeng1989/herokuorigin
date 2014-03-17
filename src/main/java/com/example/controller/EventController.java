@@ -21,7 +21,7 @@ public class EventController {
 	 @RequestMapping("event/{type}")
 	 @ResponseBody
 	 public String EventHandler(@PathVariable(value="type") String type, @RequestParam String url) {
-		 return "url is "+url;
+		 return "url is "+url+" type is"+type;
 	 }
 	 
 }
