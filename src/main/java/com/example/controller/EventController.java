@@ -21,7 +21,9 @@ public class EventController {
 	 @RequestMapping("event/{type}")
 	 @ResponseBody
 	 public String EventHandler(@PathVariable(value="type") String type, @RequestParam String url) {
-		 return "url is "+url+" type is"+type;
+		 String[] URLParts = url.split("/");
+		 String token = URLParts[URLParts.length-1];
+		 return "url is "+url+" type is "+type+"token is "+token;
 	 }
 	 
 }
