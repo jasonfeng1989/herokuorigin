@@ -14,7 +14,7 @@ public class EventController {
 	 @RequestMapping("event/*https://www.acme-marketplace.com/api/integration/v1/events/{token}")
 	 public String EventHandler(@PathVariable("token") String token) {
 		 System.out.println("token is "+token);
-		 return "abc";
+		 return "people";
 	 }
 	 
 }
