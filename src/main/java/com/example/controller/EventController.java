@@ -29,8 +29,7 @@ public class EventController {
 	 */
 	 @RequestMapping("event/{action}")
 	 @ResponseBody
-	 public String EventHandler(@PathVariable(value="action") String action, @RequestParam String url) throws 
-	 OAuthMessageSignerException, OAuthExpectationFailedException, OAuthCommunicationException, IOException {
+	 public String EventHandler(@PathVariable(value="action") String action, @RequestParam String url) throws Exception {
 		 String[] URLParts = url.split("/");
 		 String token = URLParts[URLParts.length-1];
 		 return(eventService.FetchEvent(token));
