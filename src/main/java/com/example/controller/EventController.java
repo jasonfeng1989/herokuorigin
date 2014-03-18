@@ -13,6 +13,8 @@ import oauth.signpost.exception.OAuthExpectationFailedException;
 import oauth.signpost.exception.OAuthMessageSignerException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,10 +22,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
+@Configuration
+@ComponentScan("com.example.service")
 public class EventController {
 	
-	//@Autowired
-    //private EventService eventService;
+	@Autowired
+    private EventService eventService;
 	
 	/* request url is http://herokuorigin.herokuapp.com/event/create?url=https://www.acme-marketplace.com/api/integration/v1/events/1234
 	 * will read out action = "create"
@@ -35,11 +39,12 @@ public class EventController {
 	 OAuthMessageSignerException, OAuthExpectationFailedException, OAuthCommunicationException, IOException {
 		 String[] URLParts = url.split("/");
 		 String token = URLParts[URLParts.length-1];
-		 return(FetchEvent(token));
+		 return(eventService.FetchEvent(token));
 		 
 		 //return "url is "+url+"\n cation is "+action+"\n token is "+token;
 	 }
 	 
+	 /*
 	 public String FetchEvent(String token) throws IOException, OAuthMessageSignerException, OAuthExpectationFailedException, OAuthCommunicationException{
 			OAuthConsumer consumer = new DefaultOAuthConsumer("test-7940", "UlhALaaoJ20e6caa");
 			URL url = new URL("https://www.appdirect.com/AppDirect/rest/api/events/"+token);
@@ -50,5 +55,5 @@ public class EventController {
 			String ResponseMessage = request.getResponseMessage();
 			return ResponseMessage;
 	}
-	 
+	*/
 }
