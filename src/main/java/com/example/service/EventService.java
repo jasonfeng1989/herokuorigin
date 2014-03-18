@@ -5,12 +5,18 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import oauth.signpost.OAuthConsumer;
+import oauth.signpost.basic.DefaultOAuthConsumer;
+import oauth.signpost.exception.OAuthCommunicationException;
+import oauth.signpost.exception.OAuthExpectationFailedException;
+import oauth.signpost.exception.OAuthMessageSignerException;
+
 public class EventService {
-	public void FetchEvent(String token) throws IOException{
-		//OAuthConsumer consumer = new DefaultOAuthConsumer("test-7940", "UlhALaaoJ20e6caa");
+	public void FetchEvent(String token) throws IOException, OAuthMessageSignerException, OAuthExpectationFailedException, OAuthCommunicationException{
+		OAuthConsumer consumer = new DefaultOAuthConsumer("test-7940", "UlhALaaoJ20e6caa");
 		URL url = new URL("https://www.appdirect.com/AppDirect/rest/api/events/"+token);
 		HttpURLConnection request = (HttpURLConnection) url.openConnection();
-		//consumer.sign(request);
+		consumer.sign(request);
 		request.connect();
 	}
 }
