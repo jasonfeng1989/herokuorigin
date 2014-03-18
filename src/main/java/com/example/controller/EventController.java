@@ -30,7 +30,7 @@ public class EventController {
 	 public String EventHandler(@PathVariable(value="action") String action, @RequestParam String url) {
 		 String[] URLParts = url.split("/");
 		 String token = URLParts[URLParts.length-1];
-		 eventService.FetchEvent(token);
+		 //eventService.FetchEvent(token);
 		 return "url is "+url+"\n cation is "+action+"\n token is "+token;
 	 }
 	 
