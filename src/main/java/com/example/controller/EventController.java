@@ -1,9 +1,15 @@
 package com.example.controller;
 
+import java.io.IOException;
+
 import com.example.service.EventService;
 import com.example.service.PersonService;
 
 import javax.servlet.http.HttpServletResponse;
+
+import oauth.signpost.exception.OAuthCommunicationException;
+import oauth.signpost.exception.OAuthExpectationFailedException;
+import oauth.signpost.exception.OAuthMessageSignerException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,11 +33,13 @@ public class EventController {
 	 */
 	 @RequestMapping("event/{action}")
 	 @ResponseBody
-	 public String EventHandler(@PathVariable(value="action") String action, @RequestParam String url) {
+	 public String EventHandler(@PathVariable(value="action") String action, @RequestParam String url) throws 
+	 OAuthMessageSignerException, OAuthExpectationFailedException, OAuthCommunicationException, IOException {
 		 String[] URLParts = url.split("/");
 		 String token = URLParts[URLParts.length-1];
-		 //eventService.FetchEvent(token);
-		 return "url is "+url+"\n cation is "+action+"\n token is "+token;
+		 return(eventService.FetchEvent(token));
+		 
+		 //return "url is "+url+"\n cation is "+action+"\n token is "+token;
 	 }
 	 
 }
