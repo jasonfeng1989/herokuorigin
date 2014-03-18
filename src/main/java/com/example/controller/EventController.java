@@ -1,7 +1,7 @@
 package com.example.controller;
 
-import java.io.IOException;
-import java.util.Map;
+import com.example.service.EventService;
+import com.example.service.PersonService;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -17,13 +17,21 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class EventController {
-		
-	 @RequestMapping("event/{type}")
+	
+	@Autowired
+    private EventService eventService;
+	
+	/* request url is http://herokuorigin.herokuapp.com/event/create?url=https://www.acme-marketplace.com/api/integration/v1/events/1234
+	 * will read out action = "create"
+	 * url = "https://www.acme-marketplace.com/api/integration/v1/events/1234"
+	 */
+	 @RequestMapping("event/{action}")
 	 @ResponseBody
-	 public String EventHandler(@PathVariable(value="type") String type, @RequestParam String url) {
+	 public String EventHandler(@PathVariable(value="action") String action, @RequestParam String url) {
 		 String[] URLParts = url.split("/");
 		 String token = URLParts[URLParts.length-1];
-		 return "url is "+url+" type is "+type+"token is "+token;
+		 eventService.FetchEvent(token);
+		 return "url is "+url+"\n cation is "+action+"\n token is "+token;
 	 }
 	 
 }
