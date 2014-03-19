@@ -81,7 +81,7 @@ public class EventServiceImpl implements EventService {
 		CompanySubscription companySubscription =  CreateCompanySubscription(doc);
 		User user = CreateUser(doc, companySubscription);
 		/* bind two objects */
-		return user.getFirstName();
+		return user.getFirstName()+companySubscription.getEdition();
 		/*
 		user.setCompanySubscription(companySubscription);
 		
