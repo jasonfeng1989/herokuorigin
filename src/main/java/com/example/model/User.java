@@ -12,7 +12,7 @@ import javax.persistence.ManyToOne;
 public class User {
     @Id
     @GeneratedValue
-    private Integer studentId;
+    private Integer userId;
 
 	private String email;
 	
@@ -37,14 +37,14 @@ public class User {
     	this.companySubscription = companySubscription;
     }
     
-
-    public Integer getStudentId() {
-		return studentId;
+	public Integer getUserId() {
+		return userId;
 	}
 
-	public void setStudentId(Integer studentId) {
-		this.studentId = studentId;
+	public void setUserId(Integer userId) {
+		this.userId = userId;
 	}
+
 
 	public String getEmail() {
 		return email;
@@ -89,6 +89,8 @@ public class User {
 		}
 			
 	}
+
+
     
     
 }
