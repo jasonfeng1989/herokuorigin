@@ -48,8 +48,8 @@ public class EventServiceImpl implements EventService {
 		consumer.sign(request);
 		request.connect();
 		Integer responseCode = request.getResponseCode();
-		return responseCode.toString();
-		/*
+		//responseCode.toString();
+		
 		//String ResponseMessage = request.getResponseMessage();
 		if (responseCode == 200) {
 			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -59,11 +59,11 @@ public class EventServiceImpl implements EventService {
 			return HandleEvent(doc);
 		}
 		else {
-			String message = "HTTP response "+ResponseCode;
+			String message = "HTTP response "+responseCode;
 			String result = String.format(ErrorTemplate, "UNKNOWN ERROR", message);
 			return result;
 		}
-		*/
+		
 	}
 	
 	public String HandleEvent(Document doc) {
