@@ -111,13 +111,13 @@ public class EventServiceImpl implements EventService {
 	 @Transactional
 	 public void addUser(User user) {
 		 em.persist(user);
-		 em.flush();
+		 //em.flush();
 	 }
 	 
 	 @Transactional
 	 public String addCompanySubscription(CompanySubscription companySubscription) {
 		 em.persist(companySubscription);
-		 em.flush();
+		 //em.flush();
 		 return companySubscription.getCompanyId().toString();
 	 }
 }
