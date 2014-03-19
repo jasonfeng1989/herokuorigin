@@ -24,7 +24,7 @@ public class CompanySubscription {
     private String website;
     
     @OneToMany(mappedBy="companySubscription", cascade = CascadeType.ALL)
-    private Set<User> users ; 
+    private Set<User> users = new HashSet<User>(); 
     
     public CompanySubscription() {
     }
