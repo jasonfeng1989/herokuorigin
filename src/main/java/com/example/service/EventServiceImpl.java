@@ -47,9 +47,11 @@ public class EventServiceImpl implements EventService {
 		HttpURLConnection request = (HttpURLConnection) url.openConnection();
 		consumer.sign(request);
 		request.connect();
-		int ResponseCode = request.getResponseCode();
+		Integer responseCode = request.getResponseCode();
+		return responseCode.toString();
+		/*
 		//String ResponseMessage = request.getResponseMessage();
-		if (ResponseCode == 200) {
+		if (responseCode == 200) {
 			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 			DocumentBuilder db = dbf.newDocumentBuilder();
 			Document doc = db.parse(request.getInputStream());
@@ -61,6 +63,7 @@ public class EventServiceImpl implements EventService {
 			String result = String.format(ErrorTemplate, "UNKNOWN ERROR", message);
 			return result;
 		}
+		*/
 	}
 	
 	public String HandleEvent(Document doc) {
