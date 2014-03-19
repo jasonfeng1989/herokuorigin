@@ -118,6 +118,6 @@ public class EventServiceImpl implements EventService {
 	 public String addCompanySubscription(CompanySubscription companySubscription) {
 		 em.persist(companySubscription);
 		 em.flush();
-		 return companySubscription.getCompanyId();
+		 return companySubscription.getCompanyId().toString();
 	 }
 }

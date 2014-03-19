@@ -7,7 +7,7 @@ import javax.persistence.Id;
 @Entity
 public class CompanySubscription {
 
-    private String companyId;
+    private Integer companyId;
     
     private String edition;
 
@@ -26,11 +26,11 @@ public class CompanySubscription {
 
 	@Id
     @GeneratedValue
-	public String getCompanyId() {
+	public Integer getCompanyId() {
 		return companyId;
 	}
 
-	public void setCompanyId(String companyId) {
+	public void setCompanyId(Integer companyId) {
 		this.companyId = companyId;
 	}
 

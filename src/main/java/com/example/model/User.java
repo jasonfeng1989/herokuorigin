@@ -10,7 +10,7 @@ import javax.persistence.Table;
 @Entity
 public class User {
 
-    private int studentId;
+    private Integer studentId;
 
 	private String email;
 	
@@ -35,11 +35,11 @@ public class User {
     
     @Id
     @GeneratedValue
-    public int getStudentId() {
+    public Integer getStudentId() {
 		return studentId;
 	}
 
-	public void setStudentId(int studentId) {
+	public void setStudentId(Integer studentId) {
 		this.studentId = studentId;
 	}
 
