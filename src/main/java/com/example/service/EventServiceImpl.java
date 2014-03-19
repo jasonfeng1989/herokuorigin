@@ -122,15 +122,17 @@ public class EventServiceImpl implements EventService {
 	
 	 @Transactional
 	 public void persistUser(User user) {
+		 em.getTransaction().begin();
 		 em.persist(user);
-		 em.flush();
+		 em.getTransaction().commit();
 	 }
 	 
 	 
 	 @Transactional
 	 public String persistCompanySubscription(CompanySubscription companySubscription) {
+		 em.getTransaction().begin();
 		 em.persist(companySubscription);
-		 em.flush();
+		 em.getTransaction().commit();
 		 return companySubscription.getCompanyId().toString();
 	 }
 	 
