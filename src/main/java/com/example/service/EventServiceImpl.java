@@ -88,10 +88,11 @@ public class EventServiceImpl implements EventService {
 		/* bind two objects */
 		companySubscription.addUser(user);
 		user.setCompanySubscription(companySubscription);
-		
-		//String accountId = persistCompanySubscription(companySubscription);
 		persistUser(user);
-		String accountId = user.getCompanySubscription().getCompanyId().toString();
+		String accountId = persistCompanySubscription(companySubscription);
+		
+		
+		//String accountId = user.getCompanySubscription().getCompanyId().toString();
 		String result = String.format("<result><success>true</success><accountIdentifier>%s</accountIdentifier></result>", accountId);
 		return result;
 		
@@ -122,15 +123,15 @@ public class EventServiceImpl implements EventService {
 	 @Transactional
 	 public void persistUser(User user) {
 		 em.persist(user);
-		 //em.flush();
+		 em.flush();
 	 }
 	 
-	 /*
+	 
 	 @Transactional
 	 public String persistCompanySubscription(CompanySubscription companySubscription) {
 		 em.persist(companySubscription);
 		 em.flush();
 		 return companySubscription.getCompanyId().toString();
 	 }
-	 */
+	 
 }

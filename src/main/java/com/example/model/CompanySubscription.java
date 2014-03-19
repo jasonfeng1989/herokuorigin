@@ -23,7 +23,7 @@ public class CompanySubscription {
 
     private String website;
     
-    @OneToMany(mappedBy="companySubscription", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy="companySubscription")
     private Set<User> users = new HashSet<User>(); 
     
     public CompanySubscription() {
