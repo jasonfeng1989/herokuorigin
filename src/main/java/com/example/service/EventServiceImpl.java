@@ -34,12 +34,12 @@ import oauth.signpost.exception.OAuthMessageSignerException;
 @Service
 public class EventServiceImpl implements EventService {
 	
-	/*
+	
     @PersistenceContext
     EntityManager em;
-	*/
-	static EntityManagerFactory emf = Persistence.createEntityManagerFactory("JPAService");
-	static EntityManager em = emf.createEntityManager();
+	
+	//static EntityManagerFactory emf = Persistence.createEntityManagerFactory("JPAService");
+	//static EntityManager em = emf.createEntityManager();
 	
 	private String ErrorTemplate = "<result>" +
 									"<success>false</success>"+
