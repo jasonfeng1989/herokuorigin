@@ -110,7 +110,7 @@ public class EventServiceImpl implements EventService {
 	
 	 @Transactional
 	 public void addUser(User user) {
-		 em.persist(user);
+		 em.merge(user);
 		 //em.flush();
 	 }
 	 
