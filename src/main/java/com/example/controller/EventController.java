@@ -23,16 +23,17 @@ public class EventController {
 	@Autowired
     private EventService eventService;
 	
-	/* request url is http://herokuorigin.herokuapp.com/event/create?url=https://www.acme-marketplace.com/api/integration/v1/events/1234
+	/* request url is http://herokuorigin.herokuapp.com/event/create?url=https://www.appdirect.com/rest/api/events/1234
 	 * will read out action = "create"
-	 * url = "https://www.acme-marketplace.com/api/integration/v1/events/1234"
+	 * url = "https://www.appdirect.com/rest/api/events/1234"
 	 */
 	 @RequestMapping("event/{action}")
 	 @ResponseBody
 	 public String EventHandler(@PathVariable(value="action") String action, @RequestParam String url) throws Exception {
 		 String[] URLParts = url.split("/");
 		 String token = URLParts[URLParts.length-1];
-		 return(eventService.FetchEvent(token));
+		 return token;
+		 //return(eventService.FetchEvent(token));
 		 
 		 //return "url is "+url+"\n cation is "+action+"\n token is "+token;
 	 }
