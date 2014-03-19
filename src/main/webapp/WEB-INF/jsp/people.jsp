@@ -65,7 +65,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach items="${peopleList123}" var="person">
+                    <c:forEach items="${peopleList}" var="person">
                         <tr>
                             <td>${person.lastName}, ${person.firstName}</td>
                             <td>${person.phone}</td>
