@@ -94,23 +94,18 @@ public class EventServiceImpl implements EventService {
 		
 		//return user.getFirstName()+companySubscription.getEdition();
 		// bind two objects 
-		
-		em.getTransaction().begin();
 		companySubscription.addUser(user);
 		user.setCompanySubscription(companySubscription);
-		em.persist(user);
-		//Query query = em.createQuery("SELECT u FROM user u");
-		em.getTransaction().commit();
-		em.close();
-		
-		//persistUser(user);
+		persistUser(user);
 		//String accountId = persistCompanySubscription(companySubscription);
+		return user.getUserId().toString();
 		
 		
+		/*
 		String accountId = user.getCompanySubscription().getCompanyId().toString();
 		String result = String.format("<result><success>true</success><accountIdentifier>%s</accountIdentifier></result>", accountId);
 		return result;
-		
+		*/
 		
 		
 	}
@@ -139,12 +134,10 @@ public class EventServiceImpl implements EventService {
 	
 	 @Transactional
 	 public void persistUser(User user) {
-		 em.getTransaction().begin();
 		 em.persist(user);
-		 em.getTransaction().commit();
 	 }
 	 
-	 
+	 /*
 	 @Transactional
 	 public String persistCompanySubscription(CompanySubscription companySubscription) {
 		 em.getTransaction().begin();
@@ -152,7 +145,7 @@ public class EventServiceImpl implements EventService {
 		 em.getTransaction().commit();
 		 return companySubscription.getCompanyId().toString();
 	 }
-	 
+	 */
 	 
 	 
 	 
