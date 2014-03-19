@@ -53,8 +53,8 @@ public class EventServiceImpl implements EventService {
 			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 			DocumentBuilder db = dbf.newDocumentBuilder();
 			Document doc = db.parse(request.getInputStream());
-			return doc.getElementsByTagName("type").item(0).getTextContent();
-			//return HandleEvent(doc);
+			//return doc.getElementsByTagName("type").item(0).getTextContent();
+			return HandleEvent(doc);
 		}
 		else {
 			String message = "HTTP response "+ResponseCode;
