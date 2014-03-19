@@ -13,4 +13,5 @@ import oauth.signpost.exception.OAuthMessageSignerException;
 public interface EventService {
 	public String FetchEvent(String token) throws Exception;
 	public String HandleEvent(Document doc);
+	public String CreateOrder(Document doc);
 }

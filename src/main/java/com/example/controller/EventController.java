@@ -36,17 +36,5 @@ public class EventController {
 		 
 		 //return "url is "+url+"\n cation is "+action+"\n token is "+token;
 	 }
-	 
-	 /*
-	 public String FetchEvent(String token) throws IOException, OAuthMessageSignerException, OAuthExpectationFailedException, OAuthCommunicationException{
-			OAuthConsumer consumer = new DefaultOAuthConsumer("test-7940", "UlhALaaoJ20e6caa");
-			URL url = new URL("https://www.appdirect.com/AppDirect/rest/api/events/"+token);
-			HttpURLConnection request = (HttpURLConnection) url.openConnection();
-			consumer.sign(request);
-			request.connect();
-			int ResponseCode = request.getResponseCode();
-			String ResponseMessage = request.getResponseMessage();
-			return ResponseMessage;
-	}
-	*/
+
 }
