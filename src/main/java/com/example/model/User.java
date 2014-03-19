@@ -22,7 +22,7 @@ public class User {
     
     private String openID;
     
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.PERSIST)
     @JoinColumn(name="companyId")
     private CompanySubscription companySubscription;
 

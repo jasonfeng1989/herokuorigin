@@ -6,7 +6,10 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -30,8 +33,13 @@ import oauth.signpost.exception.OAuthMessageSignerException;
 
 @Service
 public class EventServiceImpl implements EventService {
+	
+	/*
     @PersistenceContext
     EntityManager em;
+	*/
+	static EntityManagerFactory emf = Persistence.createEntityManagerFactory("JPAService");
+	static EntityManager em = emf.createEntityManager();
 	
 	private String ErrorTemplate = "<result>" +
 									"<success>false</success>"+
@@ -80,25 +88,34 @@ public class EventServiceImpl implements EventService {
 	}
 	
 	public String CreateOrder(Document doc) {
-		/* create companySubscription and user objects */
+		// create companySubscription and user objects 
 		CompanySubscription companySubscription =  CreateCompanySubscription(doc);
 		User user = CreateUser(doc, companySubscription);
 		
 		//return user.getFirstName()+companySubscription.getEdition();
-		/* bind two objects */
+		// bind two objects 
+		
+		em.getTransaction().begin();
 		companySubscription.addUser(user);
 		user.setCompanySubscription(companySubscription);
-		persistUser(user);
-		String accountId = persistCompanySubscription(companySubscription);
+		em.persist(user);
+		//Query query = em.createQuery("SELECT u FROM user u");
+		em.getTransaction().commit();
+		em.close();
+		
+		//persistUser(user);
+		//String accountId = persistCompanySubscription(companySubscription);
 		
 		
-		//String accountId = user.getCompanySubscription().getCompanyId().toString();
+		String accountId = user.getCompanySubscription().getCompanyId().toString();
 		String result = String.format("<result><success>true</success><accountIdentifier>%s</accountIdentifier></result>", accountId);
 		return result;
 		
+		
+		
 	}
 	
-	/* create company subscription from xml */
+	// create company subscription from xml 
 	public CompanySubscription CreateCompanySubscription(Document doc){
 		Element ce = (Element) doc.getElementsByTagName("company").item(0);
 		String name = ce.getElementsByTagName("name").item(0).getTextContent();
@@ -109,7 +126,7 @@ public class EventServiceImpl implements EventService {
 		return companySubscription;
 	}
 	
-	/* create user from xml */
+	// create user from xml 
 	public User CreateUser(Document doc, CompanySubscription companySubscription) {
 		Element e = (Element) doc.getElementsByTagName("creator").item(0);
 		String email = e.getElementsByTagName("email").item(0).getTextContent();
@@ -135,5 +152,7 @@ public class EventServiceImpl implements EventService {
 		 em.getTransaction().commit();
 		 return companySubscription.getCompanyId().toString();
 	 }
+	 
+	 
 	 
 }
