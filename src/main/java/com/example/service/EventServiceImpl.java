@@ -42,8 +42,8 @@ public class EventServiceImpl implements EventService {
 	
 	public String FetchEvent(String token) throws Exception {
 		OAuthConsumer consumer = new DefaultOAuthConsumer("test-7940", "R1yGUXKpQXnv");
-		URL url = new URL("https://www.appdirect.com/rest/api/events/"+token);
-		//URL url = new URL("https://www.appdirect.com/rest/api/events/dummyOrder");
+		//URL url = new URL("https://www.appdirect.com/rest/api/events/"+token);
+		URL url = new URL("https://www.appdirect.com/rest/api/events/dummyOrder");
 		HttpURLConnection request = (HttpURLConnection) url.openConnection();
 		consumer.sign(request);
 		request.connect();
