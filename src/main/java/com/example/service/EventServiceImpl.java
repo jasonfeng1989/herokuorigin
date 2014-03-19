@@ -80,9 +80,10 @@ public class EventServiceImpl implements EventService {
 		/* create companySubscription and user objects */
 		CompanySubscription companySubscription =  CreateCompanySubscription(doc);
 		User user = CreateUser(doc, companySubscription);
+		
+		//return user.getFirstName()+companySubscription.getEdition();
 		/* bind two objects */
-		return user.getFirstName()+companySubscription.getEdition();
-		/*
+		companySubscription.addUser(user);
 		user.setCompanySubscription(companySubscription);
 		
 		//String accountId = persistCompanySubscription(companySubscription);
@@ -90,7 +91,7 @@ public class EventServiceImpl implements EventService {
 		String accountId = user.getCompanySubscription().getCompanyId().toString();
 		String result = String.format("<result><success>true</success><accountIdentifier>%s</accountIdentifier></result>", accountId);
 		return result;
-		*/
+		
 	}
 	
 	/* create company subscription from xml */
