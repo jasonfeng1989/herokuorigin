@@ -103,7 +103,7 @@ public class EventServiceImpl implements EventService {
 		String email = e.getElementsByTagName("email").item(0).getTextContent();
 		String firstName = e.getElementsByTagName("firstName").item(0).getTextContent();
 		String lastName = e.getElementsByTagName("lastName").item(0).getTextContent();
-		String openID = e.getElementsByTagName("openID").item(0).getTextContent();
+		String openID = e.getElementsByTagName("openId").item(0).getTextContent();
 		User user = new User(email, firstName, lastName, openID, companySubscription);
 		return user;
 	}
