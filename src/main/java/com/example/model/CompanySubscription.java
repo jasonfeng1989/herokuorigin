@@ -1,12 +1,19 @@
 package com.example.model;
 
+import java.util.HashSet;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class CompanySubscription {
-
+	@Id
+    @GeneratedValue
+    @Column(name="companyId")
     private Integer companyId;
     
     private String edition;
@@ -14,6 +21,9 @@ public class CompanySubscription {
     private String name;
 
     private String website;
+    
+    @OneToMany(mappedBy="companySubscription", cascade = CascadeType.ALL)
+    private HashSet<User> users;
     
     public CompanySubscription() {
     }
@@ -24,8 +34,7 @@ public class CompanySubscription {
     	this.website = website;
     }
 
-	@Id
-    @GeneratedValue
+
 	public Integer getCompanyId() {
 		return companyId;
 	}
@@ -56,6 +65,17 @@ public class CompanySubscription {
 
 	public void setWebsite(String website) {
 		this.website = website;
+	}
+	
+	public void addUser(User user) {
+		this.users.add(user);
+		if (user.getCompanySubscription()!=this) {
+			user.setCompanySubscription(this);
+		}
+	}
+	
+	public HashSet<User> getUsers() {
+		return this.users;
 	}
 
 

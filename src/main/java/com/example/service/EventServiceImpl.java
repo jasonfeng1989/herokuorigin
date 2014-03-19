@@ -77,11 +77,15 @@ public class EventServiceImpl implements EventService {
 	}
 	
 	public String CreateOrder(Document doc) {
-		/* get creator information */
+		/* create companySubscription and user objects */
 		CompanySubscription companySubscription =  CreateCompanySubscription(doc);
 		User user = CreateUser(doc, companySubscription);
-		String accountId = addCompanySubscription(companySubscription);
-		addUser(user);
+		/* bind two objects */
+		user.setCompanySubscription(companySubscription);
+		
+		//String accountId = persistCompanySubscription(companySubscription);
+		persistUser(user);
+		String accountId = user.getCompanySubscription().getCompanyId().toString();
 		String result = String.format("<result><success>true</success><accountIdentifier>%s</accountIdentifier></result>", accountId);
 		return result;
 	}
@@ -109,15 +113,17 @@ public class EventServiceImpl implements EventService {
 	}
 	
 	 @Transactional
-	 public void addUser(User user) {
-		 em.merge(user);
+	 public void persistUser(User user) {
+		 em.persist(user);
 		 //em.flush();
 	 }
 	 
+	 /*
 	 @Transactional
-	 public String addCompanySubscription(CompanySubscription companySubscription) {
+	 public String persistCompanySubscription(CompanySubscription companySubscription) {
 		 em.persist(companySubscription);
-		 //em.flush();
+		 em.flush();
 		 return companySubscription.getCompanyId().toString();
 	 }
+	 */
 }

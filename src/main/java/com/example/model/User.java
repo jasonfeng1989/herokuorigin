@@ -4,12 +4,14 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+
 
 @Entity
 public class User {
-
+    @Id
+    @GeneratedValue
     private Integer studentId;
 
 	private String email;
@@ -20,6 +22,8 @@ public class User {
     
     private String openID;
     
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="companyId")
     private CompanySubscription companySubscription;
 
     public User () {
@@ -33,8 +37,7 @@ public class User {
     	this.companySubscription = companySubscription;
     }
     
-    @Id
-    @GeneratedValue
+
     public Integer getStudentId() {
 		return studentId;
 	}
@@ -75,13 +78,16 @@ public class User {
 		this.openID = openID;
 	}
 
-	@ManyToOne(cascade = CascadeType.ALL)
 	public CompanySubscription getCompanySubscription() {
 		return companySubscription;
 	}
 
 	public void setCompanySubscription(CompanySubscription companySubscription) {
 		this.companySubscription = companySubscription;
+		if (companySubscription!=null && !companySubscription.getUsers().contains(this)) {
+			companySubscription.addUser(this);
+		}
+			
 	}
     
     
