@@ -1,6 +1,7 @@
 package com.example.model;
 
 import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -23,7 +24,7 @@ public class CompanySubscription {
     private String website;
     
     @OneToMany(mappedBy="companySubscription", cascade = CascadeType.ALL)
-    private HashSet<User> users;
+    private Set<User> users ; 
     
     public CompanySubscription() {
     }
@@ -74,7 +75,7 @@ public class CompanySubscription {
 		}
 	}
 	
-	public HashSet<User> getUsers() {
+	public Set<User> getUsers() {
 		return this.users;
 	}
 
