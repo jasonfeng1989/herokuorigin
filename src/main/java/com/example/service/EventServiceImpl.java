@@ -101,7 +101,7 @@ public class EventServiceImpl implements EventService {
 		//String accountId = persistCompanySubscription(companySubscription);
 		Query query = em.createQuery("SELECT cs FROM com.example.model.CompanySubscription cs");
 	    List<CompanySubscription> cslist = (List<CompanySubscription>) query.getResultList();
-		return cslist.toString() + companySubscription.getEdition();
+		return companySubscription.getEdition();
 		
 		/*
 		String accountId = user.getCompanySubscription().getCompanyId().toString();
@@ -137,7 +137,6 @@ public class EventServiceImpl implements EventService {
 	 @Transactional
 	 public void persistUser(User user) {
 		 em.persist(user);
-		 em.refresh(user);
 	 }
 	 
 	 /*
