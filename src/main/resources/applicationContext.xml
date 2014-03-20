@@ -29,7 +29,7 @@
 
     </bean>
     
-    <bean id="eventService" class="com.example.service.EventService" />
+    
 	
     <beans profile="default">
         <jdbc:embedded-database id="dataSource"/>        

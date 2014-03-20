@@ -32,7 +32,7 @@ import oauth.signpost.exception.OAuthCommunicationException;
 import oauth.signpost.exception.OAuthExpectationFailedException;
 import oauth.signpost.exception.OAuthMessageSignerException;
 
-
+@Service
 public class EventServiceImpl implements EventService {
 	
 	
