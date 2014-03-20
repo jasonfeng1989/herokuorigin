@@ -145,6 +145,7 @@ public class EventServiceImpl implements EventService {
 	 @Transactional
 	 public void persistCompanySubscription(CompanySubscription companySubscription) {
 		 em.persist(companySubscription);
+		 em.flush();
 		 
 	 }
 	 
