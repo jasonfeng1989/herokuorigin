@@ -98,8 +98,8 @@ public class EventServiceImpl implements EventService {
 		user.setCompanySubscription(companySubscription);
 		persistUser(user);
 		//String accountId = persistCompanySubscription(companySubscription);
-		return user.getUserId().toString();
 		
+		return user.getUserId().toString();
 		
 		/*
 		String accountId = user.getCompanySubscription().getCompanyId().toString();
@@ -112,23 +112,23 @@ public class EventServiceImpl implements EventService {
 	
 	// create company subscription from xml 
 	public CompanySubscription CreateCompanySubscription(Document doc){
+		CompanySubscription companySubscription = new CompanySubscription ();
 		Element ce = (Element) doc.getElementsByTagName("company").item(0);
-		String name = ce.getElementsByTagName("name").item(0).getTextContent();
-		String website = ce.getElementsByTagName("website").item(0).getTextContent();
+		companySubscription.setName(ce.getElementsByTagName("name").item(0).getTextContent());
+		companySubscription.setWebsite(ce.getElementsByTagName("website").item(0).getTextContent());
 		Element oe = (Element) doc.getElementsByTagName("order").item(0);
-		String edition = oe.getElementsByTagName("editionCode").item(0).getTextContent();
-		CompanySubscription companySubscription = new CompanySubscription (edition, name, website);
+		companySubscription.setEdition(oe.getElementsByTagName("editionCode").item(0).getTextContent());
 		return companySubscription;
 	}
 	
 	// create user from xml 
 	public User CreateUser(Document doc, CompanySubscription companySubscription) {
+		User user = new User();
 		Element e = (Element) doc.getElementsByTagName("creator").item(0);
-		String email = e.getElementsByTagName("email").item(0).getTextContent();
-		String firstName = e.getElementsByTagName("firstName").item(0).getTextContent();
-		String lastName = e.getElementsByTagName("lastName").item(0).getTextContent();
-		String openID = e.getElementsByTagName("openId").item(0).getTextContent();
-		User user = new User(email, firstName, lastName, openID, companySubscription);
+		user.setEmail(e.getElementsByTagName("email").item(0).getTextContent());
+		user.setFirstName(e.getElementsByTagName("firstName").item(0).getTextContent());
+		user.setLastName(e.getElementsByTagName("lastName").item(0).getTextContent());
+		user.setOpenID(e.getElementsByTagName("openId").item(0).getTextContent());
 		return user;
 	}
 	
