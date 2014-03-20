@@ -26,16 +26,6 @@ public class CompanySubscription {
     @OneToMany(mappedBy="companySubscription", cascade=CascadeType.PERSIST)
     private Set<User> users = new HashSet<User>(); 
     
-    public CompanySubscription() {
-    }
-    
-    public CompanySubscription(String edition, String name, String website) {
-    	this.edition = edition;
-    	this.name = name;
-    	this.website = website;
-    }
-
-
 	public Integer getCompanyId() {
 		return companyId;
 	}

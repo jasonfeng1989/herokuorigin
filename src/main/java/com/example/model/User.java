@@ -10,7 +10,8 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class User {
-
+    @Id
+    @GeneratedValue
     private Integer userId;
 
 	private String email;
@@ -25,18 +26,7 @@ public class User {
     @JoinColumn(name="companyId")
     private CompanySubscription companySubscription;
 
-    public User () {
-    }
-    
-    public User(String email, String firstName, String lastName, String openID, CompanySubscription companySubscription) {
-    	this.email = email;
-    	this.firstName = firstName;
-    	this.lastName = lastName;
-    	this.openID = openID;
-    	this.companySubscription = companySubscription;
-    }
-    @Id
-    @GeneratedValue
+
 	public Integer getUserId() {
 		return userId;
 	}

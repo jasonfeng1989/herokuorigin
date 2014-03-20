@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -98,8 +99,9 @@ public class EventServiceImpl implements EventService {
 		user.setCompanySubscription(companySubscription);
 		persistUser(user);
 		//String accountId = persistCompanySubscription(companySubscription);
-		
-		return user.getUserId().toString();
+		Query query = em.createQuery("SELECT cs FROM companysubscription cs");
+	    List<CompanySubscription> cslist = (List<CompanySubscription>) query.getResultList();
+		return cslist.toString();
 		
 		/*
 		String accountId = user.getCompanySubscription().getCompanyId().toString();
