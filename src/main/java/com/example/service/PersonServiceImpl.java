@@ -21,6 +21,7 @@ public class PersonServiceImpl implements PersonService {
     @Transactional
     public void addPerson(Person person) {
         em.persist(person);
+        em.flush();
     }
 
     @Transactional
