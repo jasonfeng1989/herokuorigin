@@ -58,6 +58,10 @@ public class CompanySubscription {
 		this.website = website;
 	}
 	
+	@Override
+	public String toString() {
+		return this.companyId+this.edition+this.name+this.website;
+	}
 	/*
 	public void addUser(User user) {
 		this.users.add(user);

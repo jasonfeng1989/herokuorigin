@@ -67,6 +67,11 @@ public class User {
 	public void setOpenID(String openID) {
 		this.openID = openID;
 	}
+	
+	@Override
+	public String toString() {
+		return this.userId+this.email+this.firstName+this.lastName+this.openID;
+	}
 /*
 	public CompanySubscription getCompanySubscription() {
 		return companySubscription;

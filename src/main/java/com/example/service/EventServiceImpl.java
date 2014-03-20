@@ -106,7 +106,7 @@ public class EventServiceImpl implements EventService {
 		//Query query = em.createQuery("SELECT u FROM com.example.model.CompanySubscription u");
 	    //List<CompanySubscription> alist = (List<CompanySubscription>) query.getResultList();
 		//return alist.toString() + companySubscription.getEdition();
-		return user.getUserId().toString()+companySubscription.getCompanyId().toString();
+		return user.toString()+companySubscription.toString();
 		/*
 		String accountId = user.getCompanySubscription().getCompanyId().toString();
 		String result = String.format("<result><success>true</success><accountIdentifier>%s</accountIdentifier></result>", accountId);
