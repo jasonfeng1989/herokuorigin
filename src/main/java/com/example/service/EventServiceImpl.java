@@ -25,7 +25,7 @@ import org.xml.sax.SAXException;
 
 import com.example.model.CompanySubscription;
 import com.example.model.Person;
-import com.example.model.User;
+import com.example.model.AppUser;
 
 import oauth.signpost.OAuthConsumer;
 import oauth.signpost.basic.DefaultOAuthConsumer;
@@ -90,25 +90,25 @@ public class EventServiceImpl implements EventService {
 	}
 	
 	public String CreateOrder(Document doc) {
-		// create companySubscription and user objects 
+		// create companySubscription and appUser objects 
 		CompanySubscription companySubscription =  CreateCompanySubscription(doc);
-		User user = CreateUser(doc, companySubscription);
+		AppUser appUser = CreateAppUser(doc, companySubscription);
 		
-		//return user.getFirstName()+companySubscription.getEdition();
+		//return appUser.getFirstName()+companySubscription.getEdition();
 		// bind two objects 
 		/*
-		companySubscription.addUser(user);
-		user.setCompanySubscription(companySubscription);
+		companySubscription.addAppUser(appUser);
+		appUser.setCompanySubscription(companySubscription);
 */
-		persistUser(user);
+		persistAppUser(appUser);
 		//String accountId = 
 		//persistCompanySubscription(companySubscription);
 		//Query query = em.createQuery("SELECT u FROM com.example.model.CompanySubscription u");
 	    //List<CompanySubscription> alist = (List<CompanySubscription>) query.getResultList();
 		//return alist.toString() + companySubscription.getEdition();
-		return user.toString()+companySubscription.toString();
+		return appUser.toString()+companySubscription.toString();
 		/*
-		String accountId = user.getCompanySubscription().getCompanyId().toString();
+		String accountId = appUser.getCompanySubscription().getCompanyId().toString();
 		String result = String.format("<result><success>true</success><accountIdentifier>%s</accountIdentifier></result>", accountId);
 		return result;
 		*/
@@ -128,22 +128,22 @@ public class EventServiceImpl implements EventService {
 		return companySubscription;
 	}
 	
-	// create user from xml 
-	public User CreateUser(Document doc, CompanySubscription companySubscription) {
-		User user = new User();
+	// create appUser from xml 
+	public AppUser CreateAppUser(Document doc, CompanySubscription companySubscription) {
+		AppUser appUser = new AppUser();
 		Element e = (Element) doc.getElementsByTagName("creator").item(0);
-		user.setEmail(e.getElementsByTagName("email").item(0).getTextContent());
-		user.setFirstName(e.getElementsByTagName("firstName").item(0).getTextContent());
-		user.setLastName(e.getElementsByTagName("lastName").item(0).getTextContent());
-		user.setOpenID(e.getElementsByTagName("openId").item(0).getTextContent());
-		user.setUserId(1);
-		return user;
+		appUser.setEmail(e.getElementsByTagName("email").item(0).getTextContent());
+		appUser.setFirstName(e.getElementsByTagName("firstName").item(0).getTextContent());
+		appUser.setLastName(e.getElementsByTagName("lastName").item(0).getTextContent());
+		appUser.setOpenID(e.getElementsByTagName("openId").item(0).getTextContent());
+		appUser.setUserId(1);
+		return appUser;
 	}
 	
 	
 	 @Transactional
-	 public void persistUser(User user) {
-		 em.persist(user);
+	 public void persistAppUser(AppUser appUser) {
+		 em.persist(appUser);
 	 }
 	 
 	 

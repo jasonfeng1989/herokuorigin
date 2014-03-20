@@ -9,7 +9,7 @@ import javax.persistence.ManyToOne;
 
 
 @Entity
-public class User {
+public class AppUser {
     @Id
     //@GeneratedValue
     private Integer userId;

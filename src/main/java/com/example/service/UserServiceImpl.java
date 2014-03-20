@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.model.Person;
-import com.example.model.User;
+import com.example.model.AppUser;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -15,19 +15,19 @@ public class UserServiceImpl implements UserService {
     EntityManager em;
 	
 	public String createUser() {
-		User user = new User();
-		user.setUserId(3);
-		user.setEmail("abc");
-		user.setFirstName("jason123");
-		user.setLastName("feng123");
-		user.setOpenID("helloworld");
-		addUser(user);
+		AppUser appUser = new AppUser();
+		appUser.setUserId(3);
+		appUser.setEmail("abc");
+		appUser.setFirstName("jason123");
+		appUser.setLastName("feng123");
+		appUser.setOpenID("helloworld");
+		addUser(appUser);
 		return "success";
 	}
 	
 	@Transactional
-    public void addUser(User user) {
-        em.persist(user);
+    public void addUser(AppUser appUser) {
+        em.persist(appUser);
         //em.flush();
     }
 }

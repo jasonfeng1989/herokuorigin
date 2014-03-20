@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.example.model.Person;
-import com.example.model.User;
 import com.example.service.PersonService;
 
 import java.util.Map;
