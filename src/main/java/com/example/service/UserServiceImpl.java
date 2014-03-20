@@ -28,6 +28,6 @@ public class UserServiceImpl implements UserService {
 	@Transactional
     public void addUser(User user) {
         em.persist(user);
-        em.flush();
+        //em.flush();
     }
 }
