@@ -34,6 +34,7 @@ import oauth.signpost.exception.OAuthExpectationFailedException;
 import oauth.signpost.exception.OAuthMessageSignerException;
 
 @Service
+@Transactional
 public class EventServiceImpl implements EventService {
 	
 	
@@ -102,11 +103,11 @@ public class EventServiceImpl implements EventService {
 */
 		persistAppUser(appUser);
 		//String accountId = 
-		//persistCompanySubscription(companySubscription);
-		//Query query = em.createQuery("SELECT u FROM com.example.model.CompanySubscription u");
-	    //List<CompanySubscription> alist = (List<CompanySubscription>) query.getResultList();
-		//return alist.toString() + companySubscription.getEdition();
-		return appUser.toString()+companySubscription.toString();
+		persistCompanySubscription(companySubscription);
+		Query query = em.createQuery("SELECT u FROM com.example.model.CompanySubscription u");
+	    List<CompanySubscription> alist = (List<CompanySubscription>) query.getResultList();
+		return alist.toString() + companySubscription.getEdition();
+		//return appUser.toString()+companySubscription.toString();
 		/*
 		String accountId = appUser.getCompanySubscription().getCompanyId().toString();
 		String result = String.format("<result><success>true</success><accountIdentifier>%s</accountIdentifier></result>", accountId);
@@ -124,7 +125,6 @@ public class EventServiceImpl implements EventService {
 		companySubscription.setWebsite(ce.getElementsByTagName("website").item(0).getTextContent());
 		Element oe = (Element) doc.getElementsByTagName("order").item(0);
 		companySubscription.setEdition(oe.getElementsByTagName("editionCode").item(0).getTextContent());
-		companySubscription.setCompanyId(2);
 		return companySubscription;
 	}
 	
@@ -136,7 +136,6 @@ public class EventServiceImpl implements EventService {
 		appUser.setFirstName(e.getElementsByTagName("firstName").item(0).getTextContent());
 		appUser.setLastName(e.getElementsByTagName("lastName").item(0).getTextContent());
 		appUser.setOpenID(e.getElementsByTagName("openId").item(0).getTextContent());
-		appUser.setUserId(1);
 		return appUser;
 	}
 	
@@ -144,13 +143,14 @@ public class EventServiceImpl implements EventService {
 	 @Transactional
 	 public void persistAppUser(AppUser appUser) {
 		 em.persist(appUser);
+		 em.flush();
 	 }
 	 
 	 
 	 @Transactional
 	 public void persistCompanySubscription(CompanySubscription companySubscription) {
 		 em.persist(companySubscription);
-		 //em.flush();
+		 em.flush();
 		 
 	 }
 	 
