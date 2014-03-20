@@ -97,8 +97,9 @@ public class EventServiceImpl implements EventService {
 		// bind two objects 
 		companySubscription.addUser(user);
 		user.setCompanySubscription(companySubscription);
-		persistUser(user);
-		//String accountId = persistCompanySubscription(companySubscription);
+		//persistUser(user);
+		//String accountId = 
+		persistCompanySubscription(companySubscription);
 		Query query = em.createQuery("SELECT u FROM com.example.model.User u");
 	    List<CompanySubscription> alist = (List<CompanySubscription>) query.getResultList();
 		return alist.toString() + companySubscription.getEdition();
@@ -134,20 +135,19 @@ public class EventServiceImpl implements EventService {
 		return user;
 	}
 	
+	/*
 	 @Transactional
 	 public void persistUser(User user) {
 		 em.persist(user);
 	 }
-	 
-	 /*
-	 @Transactional
-	 public String persistCompanySubscription(CompanySubscription companySubscription) {
-		 em.getTransaction().begin();
-		 em.persist(companySubscription);
-		 em.getTransaction().commit();
-		 return companySubscription.getCompanyId().toString();
-	 }
 	 */
+	 
+	 @Transactional
+	 public void persistCompanySubscription(CompanySubscription companySubscription) {
+		 em.persist(companySubscription);
+		 
+	 }
+	 
 	 
 	 
 	 
