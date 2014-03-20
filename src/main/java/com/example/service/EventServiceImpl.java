@@ -137,6 +137,7 @@ public class EventServiceImpl implements EventService {
 	 @Transactional
 	 public void persistUser(User user) {
 		 em.persist(user);
+		 em.refresh(user);
 	 }
 	 
 	 /*
