@@ -10,8 +10,7 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class User {
-    @Id
-    @GeneratedValue
+
     private Integer userId;
 
 	private String email;
@@ -36,7 +35,8 @@ public class User {
     	this.openID = openID;
     	this.companySubscription = companySubscription;
     }
-    
+    @Id
+    @GeneratedValue
 	public Integer getUserId() {
 		return userId;
 	}
