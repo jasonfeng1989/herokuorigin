@@ -21,11 +21,11 @@ public class User {
     private String lastName;
     
     private String openID;
-    
+    /*
     @ManyToOne
     @JoinColumn(name="companyId")
     private CompanySubscription companySubscription;
-
+*/
 
 	public Integer getUserId() {
 		return userId;
@@ -67,7 +67,7 @@ public class User {
 	public void setOpenID(String openID) {
 		this.openID = openID;
 	}
-
+/*
 	public CompanySubscription getCompanySubscription() {
 		return companySubscription;
 	}
@@ -79,7 +79,7 @@ public class User {
 		}
 			
 	}
-
+*/
 
     
     

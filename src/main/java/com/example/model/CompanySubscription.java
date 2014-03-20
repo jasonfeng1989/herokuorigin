@@ -22,10 +22,10 @@ public class CompanySubscription {
     private String name;
 
     private String website;
-    
+    /*
     @OneToMany(mappedBy="companySubscription")
     private Set<User> users = new HashSet<User>(); 
-    
+    */
 	public Integer getCompanyId() {
 		return companyId;
 	}
@@ -58,6 +58,7 @@ public class CompanySubscription {
 		this.website = website;
 	}
 	
+	/*
 	public void addUser(User user) {
 		this.users.add(user);
 		if (user.getCompanySubscription()!=this) {
@@ -68,6 +69,6 @@ public class CompanySubscription {
 	public Set<User> getUsers() {
 		return this.users;
 	}
-
+*/
 
 }

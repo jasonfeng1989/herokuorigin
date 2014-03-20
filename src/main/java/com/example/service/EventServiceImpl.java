@@ -15,6 +15,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.hibernate.Session;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.w3c.dom.Document;
@@ -95,8 +96,10 @@ public class EventServiceImpl implements EventService {
 		
 		//return user.getFirstName()+companySubscription.getEdition();
 		// bind two objects 
+		/*
 		companySubscription.addUser(user);
 		user.setCompanySubscription(companySubscription);
+*/
 		//persistUser(user);
 		//String accountId = 
 		persistCompanySubscription(companySubscription);
