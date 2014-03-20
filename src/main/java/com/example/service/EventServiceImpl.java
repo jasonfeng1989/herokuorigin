@@ -100,7 +100,7 @@ public class EventServiceImpl implements EventService {
 		companySubscription.addUser(user);
 		user.setCompanySubscription(companySubscription);
 */
-		//persistUser(user);
+		persistUser(user);
 		//String accountId = 
 		persistCompanySubscription(companySubscription);
 		Query query = em.createQuery("SELECT u FROM com.example.model.CompanySubscription u");
@@ -138,12 +138,12 @@ public class EventServiceImpl implements EventService {
 		return user;
 	}
 	
-	/*
+	
 	 @Transactional
 	 public void persistUser(User user) {
 		 em.persist(user);
 	 }
-	 */
+	 
 	 
 	 @Transactional
 	 public void persistCompanySubscription(CompanySubscription companySubscription) {
