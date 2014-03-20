@@ -15,18 +15,19 @@ public class UserServiceImpl implements UserService {
     EntityManager em;
 	
 	public String createUser() {
+		
+		addUser();
+		return "success";
+	}
+	
+	@Transactional
+    public void addUser() {
 		AppUser appUser = new AppUser();
 		appUser.setUserId(3);
 		appUser.setEmail("abc");
 		appUser.setFirstName("jason123");
 		appUser.setLastName("feng123");
 		appUser.setOpenID("helloworld");
-		addUser(appUser);
-		return "success";
-	}
-	
-	@Transactional
-    public void addUser(AppUser appUser) {
         em.persist(appUser);
         em.flush();
     }
