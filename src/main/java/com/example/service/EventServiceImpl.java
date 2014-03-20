@@ -33,6 +33,7 @@ import oauth.signpost.exception.OAuthExpectationFailedException;
 import oauth.signpost.exception.OAuthMessageSignerException;
 
 @Service
+@Transactional 
 public class EventServiceImpl implements EventService {
 	
 	
