@@ -27,8 +27,9 @@ public class EventController {
 	 * will read out action = "create"
 	 * url = "https://www.appdirect.com/rest/api/events/1234"
 	 */
-	 @RequestMapping(value="event/{action}",
-			 produces="application/xml")
+	 //@RequestMapping(value="event/{action}",
+		//	 produces="application/xml")
+	 @RequestMapping("event/{action}")
 	 @ResponseBody
 	 public String EventHandler(@PathVariable(value="action") String action, @RequestParam String url) throws Exception {
 		 String[] URLParts = url.split("/");
