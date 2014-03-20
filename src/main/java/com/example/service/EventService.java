@@ -20,4 +20,5 @@ public interface EventService {
 	public CompanySubscription CreateCompanySubscription(Document doc);
 	public User CreateUser(Document doc, CompanySubscription companySubscription);
 	public void persistCompanySubscription(CompanySubscription companySubscription);
+	public void persistUser(User user);
 }
