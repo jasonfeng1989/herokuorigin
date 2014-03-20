@@ -14,14 +14,8 @@ public class UserServiceImpl implements UserService {
 	@PersistenceContext
     EntityManager em;
 	
-	public String createUser() {
-		
-		addUser();
-		return "success";
-	}
-	
 	@Transactional
-    public void addUser() {
+	public String createUser() {
 		AppUser appUser = new AppUser();
 		appUser.setUserId(3);
 		appUser.setEmail("abc");
@@ -30,5 +24,7 @@ public class UserServiceImpl implements UserService {
 		appUser.setOpenID("helloworld");
         em.persist(appUser);
         em.flush();
-    }
+        return "success";
+	}
+	
 }
