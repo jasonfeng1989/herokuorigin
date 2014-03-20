@@ -11,7 +11,7 @@ import javax.persistence.ManyToOne;
 @Entity
 public class AppUser {
     @Id
-    //@GeneratedValue
+    @GeneratedValue
     private Integer userId;
 
 	private String email;

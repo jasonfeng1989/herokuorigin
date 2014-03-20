@@ -10,18 +10,25 @@ import com.example.model.Person;
 import com.example.model.AppUser;
 
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
 	@PersistenceContext
     EntityManager em;
 	
-	@Transactional
+
 	public String createUser() {
 		AppUser appUser = new AppUser();
-		appUser.setUserId(3);
+		//appUser.setUserId(5);
 		appUser.setEmail("abc");
-		appUser.setFirstName("jason123");
-		appUser.setLastName("feng123");
+		appUser.setFirstName("jason1234");
+		appUser.setLastName("feng1234");
 		appUser.setOpenID("helloworld");
+		addUser(appUser);
+        return "success";
+	}
+	
+	@Transactional
+	public String addUser(AppUser appUser) {		
         em.persist(appUser);
         em.flush();
         return "success";
