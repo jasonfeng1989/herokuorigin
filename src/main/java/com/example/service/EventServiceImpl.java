@@ -124,6 +124,7 @@ public class EventServiceImpl implements EventService {
 		companySubscription.setWebsite(ce.getElementsByTagName("website").item(0).getTextContent());
 		Element oe = (Element) doc.getElementsByTagName("order").item(0);
 		companySubscription.setEdition(oe.getElementsByTagName("editionCode").item(0).getTextContent());
+		companySubscription.setCompanyId(2);
 		return companySubscription;
 	}
 	
@@ -135,6 +136,7 @@ public class EventServiceImpl implements EventService {
 		user.setFirstName(e.getElementsByTagName("firstName").item(0).getTextContent());
 		user.setLastName(e.getElementsByTagName("lastName").item(0).getTextContent());
 		user.setOpenID(e.getElementsByTagName("openId").item(0).getTextContent());
+		user.setUserId(1);
 		return user;
 	}
 	

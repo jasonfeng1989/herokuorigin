@@ -13,8 +13,8 @@ import javax.persistence.OneToMany;
 @Entity
 public class CompanySubscription {
 	@Id
-    @GeneratedValue
-    @Column(name="companyId")
+    //@GeneratedValue
+    //@Column(name="companyId")
     private Integer companyId;
     
     private String edition;
