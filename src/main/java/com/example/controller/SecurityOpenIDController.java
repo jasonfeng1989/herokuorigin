@@ -31,11 +31,10 @@ public class SecurityOpenIDController {
 	
 	@RequestMapping(value="/login")
 	public void LoginHandler(@RequestParam("openid") String openid, UriComponentsBuilder builder,
-			HttpServletRequest request, HttpServletResponse response) throws Exception {
+			HttpServletRequest httpReq, HttpServletResponse httpResp) throws Exception {
 		String returnUrl = builder.path("/openid/return").build().toUriString();  
 		List discoveries = manager.discover(openid);
 		DiscoveryInformation discovered = manager.associate(discoveries);
-		HttpServletRequest httpReq = null;
 		httpReq.getSession().setAttribute("openid-disc", discovered);
 		AuthRequest authReq = manager.authenticate(discovered, returnUrl);  
 		 
@@ -46,9 +45,9 @@ public class SecurityOpenIDController {
 	    authReq.addExtension(fetch);  
 	     
 		if (!discovered.isVersion2()) {
-			response.sendRedirect(authReq.getDestinationUrl(true)); 
+			httpResp.sendRedirect(authReq.getDestinationUrl(true)); 
 		} else {
-			response.sendRedirect(authReq.getDestinationUrl(true));  
+			httpResp.sendRedirect(authReq.getDestinationUrl(true));  
 		 }
 	 }
 	 
