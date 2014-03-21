@@ -57,8 +57,8 @@ public class EventServiceImpl implements EventService {
 	public String FetchEvent(String token) throws Exception {
 		OAuthConsumer consumer = new DefaultOAuthConsumer("jasfengtestapp-7976", "FPBfHMuPPx5nN5Jq");
 		//URL url = new URL("https://www.appdirect.com/rest/api/events/"+token);
-		URL url = new URL("https://www.appdirect.com/rest/api/events/dummyOrder");
-		//URL url = new URL("https://www.appdirect.com/rest/api/events/dummyChange");
+		//URL url = new URL("https://www.appdirect.com/rest/api/events/dummyOrder");
+		URL url = new URL("https://www.appdirect.com/rest/api/events/dummyChange");
 		HttpURLConnection request = (HttpURLConnection) url.openConnection();
 		consumer.sign(request);
 		request.connect();
@@ -125,7 +125,7 @@ public class EventServiceImpl implements EventService {
 	public String ChangeOrder(Document doc) {
 		// read the incoming xml accountId
 		//String accountId = doc.getElementsByTagName("accountIdentifier").item(0).getTextContent();
-		Integer accountId = 8;
+		Integer accountId = 24;
 		// read the incoming xml edition
 		String newEdition = doc.getElementsByTagName("editionCode").item(0).getTextContent();
 		// get companysubscription by accountId
@@ -133,7 +133,7 @@ public class EventServiceImpl implements EventService {
 		// change the edition
 		companySubscription.setEdition(newEdition);
 		// persist new companysubscription transaction
-		
+		persistCompanySubscription(companySubscription);
 		return String.format(resultxml, accountId.toString());
 		
 	}
