@@ -196,8 +196,8 @@ public class EventServiceImpl implements EventService {
 		}
 		String openId = doc.getElementsByTagName("openId").item(0).getTextContent();
 		// search the database for appuser whose openid == openis and companyid = accountId
-		Query query = em.createQuery("SELECT u FROM com.example.model.AppUser u WHERE u.companySubscription=:accountId AND u.openID=:openId").
-				setParameter("accountId", accountId).setParameter("openId", openId);
+		Query query = em.createQuery("SELECT u FROM com.example.model.AppUser u WHERE u.companySubscription.companyId=:accountId AND u.openID=:openId").
+				setParameter("accountId", Integer.parseInt(accountId)).setParameter("openId", openId);
 		List<AppUser> appUsers = (List<AppUser>) query.getResultList();
 		if (appUsers.isEmpty()) {
 			return String.format(ErrorTemplate, "USER_NOT_FOUND", openId);
