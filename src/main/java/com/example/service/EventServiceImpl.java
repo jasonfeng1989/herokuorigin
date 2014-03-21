@@ -60,7 +60,8 @@ public class EventServiceImpl implements EventService {
 		//URL url = new URL("https://www.appdirect.com/rest/api/events/dummyOrder");
 		//URL url = new URL("https://www.appdirect.com/rest/api/events/dummyChange");
 		//URL url = new URL("https://www.appdirect.com/rest/api/events/dummyCancel");
-		URL url = new URL("https://www.appdirect.com/rest/api/events/dummyAssign");
+		//URL url = new URL("https://www.appdirect.com/rest/api/events/dummyAssign");
+		URL url = new URL("https://www.appdirect.com/rest/api/events/dummyUnassign");
 		HttpURLConnection request = (HttpURLConnection) url.openConnection();
 		consumer.sign(request);
 		request.connect();
@@ -184,7 +185,7 @@ public class EventServiceImpl implements EventService {
 	public String UnassignUser (Document doc) {
 		// read the incoming xml accountId
 		//String accountId = doc.getElementsByTagName("accountIdentifier").item(0).getTextContent();
-		String accountId = "24";
+		String accountId = "22";
 		// get companysubscription by accountId
 		CompanySubscription companySubscription = findCompanySubscription(Integer.parseInt(accountId));
 		// if not found
@@ -192,8 +193,14 @@ public class EventServiceImpl implements EventService {
 			String message = String.format("Account %s not found", accountId);
 			return String.format(ErrorTemplate, "ACCOUNT_NOT_FOUND", message);
 		}
-		// delete companysubscription and associated users
-		removeCompanySubscription(companySubscription);
+		String openId = doc.getElementsByTagName("openId").item(0).getTextContent();
+		// search the database for appuser whose openid == openis and companyid = accountId
+		Query query = em.createQuery("SELECT u FROM appuser u WHERE companyid=:accountId AND openid=:openId", AppUser.class).
+				setParameter(accountId, accountId).setParameter(openId, openId);
+		AppUser appUser = (AppUser) query.getResultList().get(0);
+
+		// delete appUser
+		removeAppUser(appUser);
 		return String.format(resultxml, accountId);
 	}
 	
@@ -246,6 +253,12 @@ public class EventServiceImpl implements EventService {
 	 @Transactional
 	 public void removeCompanySubscription(CompanySubscription companySubscription) {
 		 em.remove(companySubscription);
+		 em.flush();
+	 }
+	 
+	 @Transactional
+	 public void removeAppUser(AppUser appUser) {
+		 em.remove(appUser);
 		 em.flush();
 	 }
 	 
