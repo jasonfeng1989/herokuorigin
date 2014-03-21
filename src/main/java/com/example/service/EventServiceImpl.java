@@ -166,7 +166,7 @@ public class EventServiceImpl implements EventService {
 	 @Transactional
 	 public void persistAppUser(AppUser appUser) {
 		 em.persist(appUser);
-		 em.flush();
+		 //em.flush();
 	 }
 	 
 	 
@@ -182,7 +182,7 @@ public class EventServiceImpl implements EventService {
 		 em.flush();
 		 */
 		 em.merge(companySubscription);
-		 em.flush();
+		 //em.flush();
 	 }
 	 
 	 
