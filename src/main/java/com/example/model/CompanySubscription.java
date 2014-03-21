@@ -72,6 +72,10 @@ public class CompanySubscription {
 		}
 	}
 	
+	public void delAppUser(AppUser appUser) {
+		this.appUsers.remove(appUser);
+	}
+	
 	public Set<AppUser> getUsers() {
 		return this.appUsers;
 	}

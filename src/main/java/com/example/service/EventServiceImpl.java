@@ -41,8 +41,6 @@ public class EventServiceImpl implements EventService {
 	
     @PersistenceContext
     EntityManager em;
-    
-    
 	
 	//static EntityManagerFactory emf = Persistence.createEntityManagerFactory("JPAService");
 	//static EntityManager em = emf.createEntityManager();
@@ -57,24 +55,21 @@ public class EventServiceImpl implements EventService {
 	
 	public String FetchEvent(String token) throws Exception {
 		OAuthConsumer consumer = new DefaultOAuthConsumer("jasfengtestapp-7976", "FPBfHMuPPx5nN5Jq");
-		//URL url = new URL("https://www.appdirect.com/rest/api/events/"+token);
+		URL url = new URL("https://www.appdirect.com/rest/api/events/"+token);
+		
 		//URL url = new URL("https://www.appdirect.com/rest/api/events/dummyOrder");
 		//URL url = new URL("https://www.appdirect.com/rest/api/events/dummyChange");
 		//URL url = new URL("https://www.appdirect.com/rest/api/events/dummyCancel");
 		//URL url = new URL("https://www.appdirect.com/rest/api/events/dummyAssign");
-		URL url = new URL("https://www.appdirect.com/rest/api/events/dummyUnassign");
+		//URL url = new URL("https://www.appdirect.com/rest/api/events/dummyUnassign");
 		HttpURLConnection request = (HttpURLConnection) url.openConnection();
 		consumer.sign(request);
 		request.connect();
 		Integer responseCode = request.getResponseCode();
-		//responseCode.toString();
-		
-		//String ResponseMessage = request.getResponseMessage();
 		if (responseCode == 200) {
 			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 			DocumentBuilder db = dbf.newDocumentBuilder();
 			Document doc = db.parse(request.getInputStream());
-			//return doc.getElementsByTagName("type").item(0).getTextContent();
 			return HandleEvent(doc);
 		}
 		else {
@@ -122,8 +117,6 @@ public class EventServiceImpl implements EventService {
 		persistAppUser(appUser);
 		Integer accountId = companySubscription.getCompanyId();
 		return String.format(resultxml, accountId.toString());
-
-
 	}
 	
 	public String ChangeOrder(Document doc) {
@@ -149,8 +142,8 @@ public class EventServiceImpl implements EventService {
 	
 	public String CancelOrder (Document doc) {
 		// read the incoming xml accountId
-		//String accountId = doc.getElementsByTagName("accountIdentifier").item(0).getTextContent();
-		String accountId = "24";
+		String accountId = doc.getElementsByTagName("accountIdentifier").item(0).getTextContent();
+		//String accountId = "24";
 		// get companysubscription by accountId
 		CompanySubscription companySubscription = findCompanySubscription(Integer.parseInt(accountId));
 		// if not found
@@ -165,8 +158,8 @@ public class EventServiceImpl implements EventService {
 	
 	public String AssignUser (Document doc) {
 		// read the incoming xml accountId
-		//String accountId = doc.getElementsByTagName("accountIdentifier").item(0).getTextContent();
-		String accountId = "22";
+		String accountId = doc.getElementsByTagName("accountIdentifier").item(0).getTextContent();
+		//String accountId = "22";
 		// get companysubscription by accountId
 		CompanySubscription companySubscription = findCompanySubscription(Integer.parseInt(accountId));
 		// if not found
@@ -185,8 +178,8 @@ public class EventServiceImpl implements EventService {
 	
 	public String UnassignUser (Document doc) {
 		// read the incoming xml accountId
-		//String accountId = doc.getElementsByTagName("accountIdentifier").item(0).getTextContent();
-		String accountId = "22";
+		String accountId = doc.getElementsByTagName("accountIdentifier").item(0).getTextContent();
+		//String accountId = "22";
 		// get companysubscription by accountId
 		CompanySubscription companySubscription = findCompanySubscription(Integer.parseInt(accountId));
 		// if not found
@@ -203,10 +196,10 @@ public class EventServiceImpl implements EventService {
 			return String.format(ErrorTemplate, "USER_NOT_FOUND", openId);
 		}
 		//AppUser appUser = (AppUser) query.getSingleResult();
-		
-
+		AppUser appUser = appUsers.get(0);
+		companySubscription.delAppUser(appUser);
 		// delete appUser
-		removeAppUser(appUsers.get(0));
+		removeAppUser(appUser);
 		return "<result><success>true</success></result>";
 	}
 	
