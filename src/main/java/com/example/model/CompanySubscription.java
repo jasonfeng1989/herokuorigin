@@ -25,7 +25,7 @@ public class CompanySubscription {
 
     private String website;
     
-    @OneToMany(mappedBy="companySubscription")
+    @OneToMany(mappedBy="companySubscription",cascade = CascadeType.PERSIST)
     private Set<AppUser> appUsers = new HashSet<AppUser>(); 
     
 	public Integer getCompanyId() {

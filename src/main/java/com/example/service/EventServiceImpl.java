@@ -100,16 +100,16 @@ public class EventServiceImpl implements EventService {
 	public String CreateOrder(Document doc) {
 		// create companySubscription and appUser objects 
 		CompanySubscription companySubscription =  CreateCompanySubscription(doc);
-		persistCompanySubscription(companySubscription);
+		
 		AppUser appUser = CreateAppUser(doc, companySubscription);
 		// bind two objects 
 		companySubscription.addAppUser(appUser);
 		appUser.setCompanySubscription(companySubscription);
 		// persist appUser
 		
-		persistAppUser(appUser);
+		//persistAppUser(appUser);
 		//String accountId = 
-		
+		persistCompanySubscription(companySubscription);
 		//Query query = em.createQuery("SELECT u FROM com.example.model.CompanySubscription u");
 	    //List<CompanySubscription> alist = (List<CompanySubscription>) query.getResultList();
 		//return alist.toString() + companySubscription.getEdition();
@@ -182,7 +182,7 @@ public class EventServiceImpl implements EventService {
 		 em.flush();
 		 */
 		 em.merge(companySubscription);
-		 //em.flush();
+		 em.flush();
 	 }
 	 
 	 
