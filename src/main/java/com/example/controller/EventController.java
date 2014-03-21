@@ -43,8 +43,8 @@ public class EventController {
 	 
 	 @RequestMapping(value="login/")
 	 @ResponseBody
-	 public String LoginHandler() {
-		 return "123";
+	 public String LoginHandler(@RequestParam("openid") String openid) {
+		 return openid;
 	 }
 
 }
