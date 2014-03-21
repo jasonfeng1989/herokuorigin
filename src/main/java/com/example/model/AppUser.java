@@ -22,7 +22,7 @@ public class AppUser {
     
     private String openID;
     
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name="companyId")
     private CompanySubscription companySubscription;
 
