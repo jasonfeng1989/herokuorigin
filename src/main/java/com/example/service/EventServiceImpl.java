@@ -5,6 +5,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -195,13 +196,17 @@ public class EventServiceImpl implements EventService {
 		}
 		String openId = doc.getElementsByTagName("openId").item(0).getTextContent();
 		// search the database for appuser whose openid == openis and companyid = accountId
-		Query query = em.createQuery("SELECT u FROM com.example.model.AppUser u WHERE u.companySubscription=:accountId AND u.openid=:openId").
+		Query query = em.createQuery("SELECT u FROM com.example.model.AppUser u WHERE u.companySubscription=:accountId AND u.openID=:openId").
 				setParameter("accountId", accountId).setParameter("openId", openId);
-		AppUser appUser = (AppUser) query.getSingleResult();
-
+		List<AppUser> appUsers = (List<AppUser>) query.getResultList();
+		if (appUsers.isEmpty()) {
+			return String.format(ErrorTemplate, "USER_NOT_FOUND", openId);
+		}
+		//AppUser appUser = (AppUser) query.getSingleResult();
+		
 
 		// delete appUser
-		removeAppUser(appUser);
+		removeAppUser(appUsers.get(0));
 		return "<result><success>true</success></result>";
 	}
 	
