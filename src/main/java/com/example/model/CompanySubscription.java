@@ -10,11 +10,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.Cascade;
+
 @Entity
 public class CompanySubscription {
 	@Id
     @GeneratedValue
-    //@Column(name="companyId")
+    @Column(name="companyId")
     private Integer companyId;
     
     private String edition;
@@ -22,10 +24,10 @@ public class CompanySubscription {
     private String name;
 
     private String website;
-    /*
-    @OneToMany(mappedBy="companySubscription")
-    private Set<User> users = new HashSet<User>(); 
-    */
+    
+    @OneToMany(mappedBy="companySubscription", cascade=CascadeType.PERSIST)
+    private Set<AppUser> appUsers = new HashSet<AppUser>(); 
+    
 	public Integer getCompanyId() {
 		return companyId;
 	}
@@ -62,17 +64,17 @@ public class CompanySubscription {
 	public String toString() {
 		return this.companyId+this.edition+this.name+this.website;
 	}
-	/*
-	public void addUser(User user) {
-		this.users.add(user);
-		if (user.getCompanySubscription()!=this) {
-			user.setCompanySubscription(this);
+	
+	public void addAppUser(AppUser appUser) {
+		this.appUsers.add(appUser);
+		if (appUser.getCompanySubscription()!=this) {
+			appUser.setCompanySubscription(this);
 		}
 	}
 	
-	public Set<User> getUsers() {
-		return this.users;
+	public Set<AppUser> getUsers() {
+		return this.appUsers;
 	}
-*/
+
 
 }

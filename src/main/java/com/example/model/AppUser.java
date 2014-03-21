@@ -21,11 +21,11 @@ public class AppUser {
     private String lastName;
     
     private String openID;
-    /*
-    @ManyToOne
+    
+    @ManyToOne(cascade=CascadeType.PERSIST)
     @JoinColumn(name="companyId")
     private CompanySubscription companySubscription;
-*/
+
 
 	public Integer getUserId() {
 		return userId;
@@ -72,7 +72,7 @@ public class AppUser {
 	public String toString() {
 		return this.userId+this.email+this.firstName+this.lastName+this.openID;
 	}
-/*
+
 	public CompanySubscription getCompanySubscription() {
 		return companySubscription;
 	}
@@ -80,11 +80,11 @@ public class AppUser {
 	public void setCompanySubscription(CompanySubscription companySubscription) {
 		this.companySubscription = companySubscription;
 		if (companySubscription!=null && !companySubscription.getUsers().contains(this)) {
-			companySubscription.addUser(this);
+			companySubscription.addAppUser(this);
 		}
 			
 	}
-*/
+
 
     
     
