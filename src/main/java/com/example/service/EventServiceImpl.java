@@ -171,14 +171,16 @@ public class EventServiceImpl implements EventService {
 	 
 	 @Transactional
 	 public void persistCompanySubscription(CompanySubscription companySubscription) {
+		 /*
 		 if (findCompanySubscription(companySubscription.getCompanyId()) == null) {
 			 em.persist(companySubscription);
 		 }
 		 else {
-			 em.merge(companySubscription);
+			 
 		 }
 		 em.flush();
-		 
+		 */
+		 em.merge(companySubscription);
 	 }
 	 
 	 
