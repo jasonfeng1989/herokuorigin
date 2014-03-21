@@ -174,6 +174,8 @@ public class EventServiceImpl implements EventService {
 		}
 		// create appuser from xml
 		AppUser appUser = CreateAppUser(doc, companySubscription);
+		// associate appuser with the companySubscription
+		appUser.setCompanySubscription(companySubscription);
 		// persist appuser
 		persistAppUser(appUser);
 		return "<result><success>true</success></result>";
