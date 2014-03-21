@@ -58,7 +58,8 @@ public class EventServiceImpl implements EventService {
 		OAuthConsumer consumer = new DefaultOAuthConsumer("jasfengtestapp-7976", "FPBfHMuPPx5nN5Jq");
 		//URL url = new URL("https://www.appdirect.com/rest/api/events/"+token);
 		//URL url = new URL("https://www.appdirect.com/rest/api/events/dummyOrder");
-		URL url = new URL("https://www.appdirect.com/rest/api/events/dummyChange");
+		//URL url = new URL("https://www.appdirect.com/rest/api/events/dummyChange");
+		URL url = new URL("https://www.appdirect.com/rest/api/events/dummyCancel");
 		HttpURLConnection request = (HttpURLConnection) url.openConnection();
 		consumer.sign(request);
 		request.connect();
@@ -89,6 +90,9 @@ public class EventServiceImpl implements EventService {
 		else if (EventType.equals("SUBSCRIPTION_CHANGE")) {
 			return ChangeOrder(doc);
 		}
+		else if (EventType.equals("SUBSCRIPTION_CANCEL")) {
+			return CancelOrder(doc);
+		}
 		else{
 			String message = "Event type "+EventType+" is not configured";
 			String result = String.format(ErrorTemplate, "CONFIGURATION_ERROR", message);
@@ -100,22 +104,13 @@ public class EventServiceImpl implements EventService {
 	public String CreateOrder(Document doc) {
 		// create companySubscription and appUser objects 
 		CompanySubscription companySubscription =  CreateCompanySubscription(doc);
-		
 		AppUser appUser = CreateAppUser(doc, companySubscription);
 		// bind two objects 
 		companySubscription.addAppUser(appUser);
 		appUser.setCompanySubscription(companySubscription);
-		// persist appUser
-		
-		//
-		//String accountId = 
+		// persist two objects
 		persistCompanySubscription(companySubscription);
 		persistAppUser(appUser);
-		//Query query = em.createQuery("SELECT u FROM com.example.model.CompanySubscription u");
-	    //List<CompanySubscription> alist = (List<CompanySubscription>) query.getResultList();
-		//return alist.toString() + companySubscription.getEdition();
-		//return appUser.toString()+companySubscription.toString();
-		
 		Integer accountId = companySubscription.getCompanyId();
 		return String.format(resultxml, accountId.toString());
 
@@ -124,18 +119,39 @@ public class EventServiceImpl implements EventService {
 	
 	public String ChangeOrder(Document doc) {
 		// read the incoming xml accountId
-		//String accountId = doc.getElementsByTagName("accountIdentifier").item(0).getTextContent();
-		Integer accountId = 24;
+		String accountId = doc.getElementsByTagName("accountIdentifier").item(0).getTextContent();
+		//String accountId = "24";
 		// read the incoming xml edition
 		String newEdition = doc.getElementsByTagName("editionCode").item(0).getTextContent();
 		// get companysubscription by accountId
-		CompanySubscription companySubscription = findCompanySubscription(accountId);
-		// change the edition
+		CompanySubscription companySubscription = findCompanySubscription(Integer.parseInt(accountId));
+		// if not found
+		if (companySubscription==null) {
+			String message = String.format("Account %s not found", accountId);
+			return String.format(ErrorTemplate, "ACCOUNT_NOT_FOUND", message);
+		}
+		// else change the edition
 		companySubscription.setEdition(newEdition);
-		// persist new companysubscription transaction
+		// persist new companysubscription
 		persistCompanySubscription(companySubscription);
-		return String.format(resultxml, accountId.toString());
+		return String.format(resultxml, accountId);
 		
+	}
+	
+	public String CancelOrder (Document doc) {
+		// read the incoming xml accountId
+		//String accountId = doc.getElementsByTagName("accountIdentifier").item(0).getTextContent();
+		String accountId = "24";
+		// get companysubscription by accountId
+		CompanySubscription companySubscription = findCompanySubscription(Integer.parseInt(accountId));
+		// if not found
+		if (companySubscription==null) {
+			String message = String.format("Account %s not found", accountId);
+			return String.format(ErrorTemplate, "ACCOUNT_NOT_FOUND", message);
+		}
+		// delete companysubscription
+		removeCompanySubscription(companySubscription);
+		return String.format(resultxml, accountId);
 	}
 	
 	// create company subscription from xml 
@@ -173,7 +189,7 @@ public class EventServiceImpl implements EventService {
 	 
 	 @Transactional
 	 public void persistCompanySubscription(CompanySubscription companySubscription) {
-		 
+		 // if it's new or not found in database
 		 if (companySubscription.getCompanyId() == null || findCompanySubscription(companySubscription.getCompanyId()) == null) {
 			 em.persist(companySubscription);
 		 }
@@ -181,8 +197,12 @@ public class EventServiceImpl implements EventService {
 			 em.merge(companySubscription);
 		 }
 		 em.flush();
-		 
-
+	 }
+	 
+	 @Transactional
+	 public void removeCompanySubscription(CompanySubscription companySubscription) {
+		 em.remove(companySubscription);
+		 em.flush();
 	 }
 	 
 	 
