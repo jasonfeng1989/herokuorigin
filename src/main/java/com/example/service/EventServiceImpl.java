@@ -57,8 +57,8 @@ public class EventServiceImpl implements EventService {
 	public String FetchEvent(String token) throws Exception {
 		OAuthConsumer consumer = new DefaultOAuthConsumer("jasfengtestapp-7976", "FPBfHMuPPx5nN5Jq");
 		//URL url = new URL("https://www.appdirect.com/rest/api/events/"+token);
-		//URL url = new URL("https://www.appdirect.com/rest/api/events/dummyOrder");
-		URL url = new URL("https://www.appdirect.com/rest/api/events/dummyChange");
+		URL url = new URL("https://www.appdirect.com/rest/api/events/dummyOrder");
+		//URL url = new URL("https://www.appdirect.com/rest/api/events/dummyChange");
 		HttpURLConnection request = (HttpURLConnection) url.openConnection();
 		consumer.sign(request);
 		request.connect();
@@ -121,16 +121,17 @@ public class EventServiceImpl implements EventService {
 	
 	public String ChangeOrder(Document doc) {
 		// read the incoming xml accountId
-		String accountId = doc.getElementsByTagName("accountIdentifier").item(0).getTextContent();
+		//String accountId = doc.getElementsByTagName("accountIdentifier").item(0).getTextContent();
+		Integer accountId = 8;
 		// read the incoming xml edition
 		String newEdition = doc.getElementsByTagName("editionCode").item(0).getTextContent();
 		// get companysubscription by accountId
-		Query query = em.createQuery("SELECT cs FROM com.example.model.CompanySubscription cs WHERE cs.companyid == accountId");
+		CompanySubscription companySubscription = findCompanySubscription(accountId);
 		// change the edition
-		
+		companySubscription.setEdition(newEdition);
 		// persist new companysubscription transaction
 		
-		return String.format(resultxml, accountId);
+		return String.format(resultxml, accountId.toString());
 		
 	}
 	
@@ -156,6 +157,9 @@ public class EventServiceImpl implements EventService {
 		return appUser;
 	}
 	
+	public CompanySubscription findCompanySubscription(Integer accountId) {
+		 return em.find(CompanySubscription.class, accountId);
+	 }
 	
 	 @Transactional
 	 public void persistAppUser(AppUser appUser) {
@@ -166,10 +170,16 @@ public class EventServiceImpl implements EventService {
 	 
 	 @Transactional
 	 public void persistCompanySubscription(CompanySubscription companySubscription) {
-		 em.persist(companySubscription);
+		 if (findCompanySubscription(companySubscription.getCompanyId()) == null) {
+			 em.persist(companySubscription);
+		 }
+		 else {
+			 em.merge(companySubscription);
+		 }
 		 em.flush();
 		 
 	 }
+	 
 	 
 	 
 	 
