@@ -107,9 +107,10 @@ public class EventServiceImpl implements EventService {
 		appUser.setCompanySubscription(companySubscription);
 		// persist appUser
 		
-		//persistAppUser(appUser);
+		//
 		//String accountId = 
 		persistCompanySubscription(companySubscription);
+		persistAppUser(appUser);
 		//Query query = em.createQuery("SELECT u FROM com.example.model.CompanySubscription u");
 	    //List<CompanySubscription> alist = (List<CompanySubscription>) query.getResultList();
 		//return alist.toString() + companySubscription.getEdition();
@@ -166,23 +167,22 @@ public class EventServiceImpl implements EventService {
 	 @Transactional
 	 public void persistAppUser(AppUser appUser) {
 		 em.persist(appUser);
-		 //em.flush();
+		 em.flush();
 	 }
 	 
 	 
 	 @Transactional
 	 public void persistCompanySubscription(CompanySubscription companySubscription) {
-		 /*
+		 
 		 if (findCompanySubscription(companySubscription.getCompanyId()) == null) {
 			 em.persist(companySubscription);
 		 }
 		 else {
-			 
+			 em.merge(companySubscription);
 		 }
 		 em.flush();
-		 */
-		 em.merge(companySubscription);
-		 em.flush();
+		 
+
 	 }
 	 
 	 
