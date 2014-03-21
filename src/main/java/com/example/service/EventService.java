@@ -15,10 +15,12 @@ import oauth.signpost.exception.OAuthMessageSignerException;
 
 public interface EventService {
 	public String FetchEvent(String token) throws Exception;
+	/*
 	public String HandleEvent(Document doc);
 	public String CreateOrder(Document doc);
 	public CompanySubscription CreateCompanySubscription(Document doc);
 	public AppUser CreateAppUser(Document doc, CompanySubscription companySubscription);
 	public void persistCompanySubscription(CompanySubscription companySubscription);
 	public void persistAppUser(AppUser appUser);
+	*/
 }

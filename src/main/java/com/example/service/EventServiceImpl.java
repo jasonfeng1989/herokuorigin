@@ -59,7 +59,8 @@ public class EventServiceImpl implements EventService {
 		//URL url = new URL("https://www.appdirect.com/rest/api/events/"+token);
 		//URL url = new URL("https://www.appdirect.com/rest/api/events/dummyOrder");
 		//URL url = new URL("https://www.appdirect.com/rest/api/events/dummyChange");
-		URL url = new URL("https://www.appdirect.com/rest/api/events/dummyCancel");
+		//URL url = new URL("https://www.appdirect.com/rest/api/events/dummyCancel");
+		URL url = new URL("https://www.appdirect.com/rest/api/events/dummyAssign");
 		HttpURLConnection request = (HttpURLConnection) url.openConnection();
 		consumer.sign(request);
 		request.connect();
@@ -92,6 +93,12 @@ public class EventServiceImpl implements EventService {
 		}
 		else if (EventType.equals("SUBSCRIPTION_CANCEL")) {
 			return CancelOrder(doc);
+		}
+		else if (EventType.equals("USER_ASSIGNMENT")) {
+			return AssignUser(doc);
+		}
+		else if (EventType.equals("USER_UNASSIGNMENT")) {
+			return UnassignUser(doc);
 		}
 		else{
 			String message = "Event type "+EventType+" is not configured";
@@ -149,10 +156,45 @@ public class EventServiceImpl implements EventService {
 			String message = String.format("Account %s not found", accountId);
 			return String.format(ErrorTemplate, "ACCOUNT_NOT_FOUND", message);
 		}
-		// delete companysubscription
+		// delete companysubscription and associated users
 		removeCompanySubscription(companySubscription);
 		return String.format(resultxml, accountId);
 	}
+	
+	public String AssignUser (Document doc) {
+		// read the incoming xml accountId
+		//String accountId = doc.getElementsByTagName("accountIdentifier").item(0).getTextContent();
+		String accountId = "22";
+		// get companysubscription by accountId
+		CompanySubscription companySubscription = findCompanySubscription(Integer.parseInt(accountId));
+		// if not found
+		if (companySubscription==null) {
+			String message = String.format("Account %s not found", accountId);
+			return String.format(ErrorTemplate, "ACCOUNT_NOT_FOUND", message);
+		}
+		// create appuser from xml
+		AppUser appUser = CreateAppUser(doc, companySubscription);
+		// persist appuser
+		persistAppUser(appUser);
+		return "<result><success>true</success></result>";
+	}
+	
+	public String UnassignUser (Document doc) {
+		// read the incoming xml accountId
+		//String accountId = doc.getElementsByTagName("accountIdentifier").item(0).getTextContent();
+		String accountId = "24";
+		// get companysubscription by accountId
+		CompanySubscription companySubscription = findCompanySubscription(Integer.parseInt(accountId));
+		// if not found
+		if (companySubscription==null) {
+			String message = String.format("Account %s not found", accountId);
+			return String.format(ErrorTemplate, "ACCOUNT_NOT_FOUND", message);
+		}
+		// delete companysubscription and associated users
+		removeCompanySubscription(companySubscription);
+		return String.format(resultxml, accountId);
+	}
+	
 	
 	// create company subscription from xml 
 	public CompanySubscription CreateCompanySubscription(Document doc){
