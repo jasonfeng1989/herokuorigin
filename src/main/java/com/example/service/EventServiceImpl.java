@@ -100,12 +100,13 @@ public class EventServiceImpl implements EventService {
 	public String CreateOrder(Document doc) {
 		// create companySubscription and appUser objects 
 		CompanySubscription companySubscription =  CreateCompanySubscription(doc);
+		persistCompanySubscription(companySubscription);
 		AppUser appUser = CreateAppUser(doc, companySubscription);
 		// bind two objects 
 		companySubscription.addAppUser(appUser);
 		appUser.setCompanySubscription(companySubscription);
 		// persist appUser
-		persistCompanySubscription(companySubscription);
+		
 		persistAppUser(appUser);
 		//String accountId = 
 		
@@ -181,6 +182,7 @@ public class EventServiceImpl implements EventService {
 		 em.flush();
 		 */
 		 em.merge(companySubscription);
+		 em.flush();
 	 }
 	 
 	 
