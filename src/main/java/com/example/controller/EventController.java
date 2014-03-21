@@ -41,9 +41,9 @@ public class EventController {
 		 //return "url is "+url+"\n cation is "+action+"\n token is "+token;
 	 }
 	 
-	 @RequestMapping(value="login/")
+	 @RequestMapping(value="login/{action}")
 	 @ResponseBody
-	 public String LoginHandler(@RequestParam String openId) {
+	 public String LoginHandler(@RequestParam(value = "openId") String openId) {
 		 return openId;
 	 }
 
