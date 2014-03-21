@@ -31,7 +31,7 @@ public class EventController {
 	 @RequestMapping(value="event/{action}",
 		 produces="application/xml")
 	 //@RequestMapping("event/{action}")
-	 //@ResponseBody
+	 @ResponseBody
 	 public String EventHandler(@PathVariable(value="action") String action, @RequestParam String url) throws Exception {
 		 String[] URLParts = url.split("/");
 		 String token = URLParts[URLParts.length-1];

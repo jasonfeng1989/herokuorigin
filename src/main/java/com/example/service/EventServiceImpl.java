@@ -40,6 +40,8 @@ public class EventServiceImpl implements EventService {
 	
     @PersistenceContext
     EntityManager em;
+    
+    
 	
 	//static EntityManagerFactory emf = Persistence.createEntityManagerFactory("JPAService");
 	//static EntityManager em = emf.createEntityManager();
@@ -50,11 +52,13 @@ public class EventServiceImpl implements EventService {
 									"<message>%s</message>"+
 									"</result>";
 	
+	private String resultxml = "<result><success>true</success><accountIdentifier>%s</accountIdentifier></result>";
 	
 	public String FetchEvent(String token) throws Exception {
-		OAuthConsumer consumer = new DefaultOAuthConsumer("test-7940", "R1yGUXKpQXnv");
+		OAuthConsumer consumer = new DefaultOAuthConsumer("jasfengtestapp-7976", "FPBfHMuPPx5nN5Jq");
 		//URL url = new URL("https://www.appdirect.com/rest/api/events/"+token);
-		URL url = new URL("https://www.appdirect.com/rest/api/events/dummyOrder");
+		//URL url = new URL("https://www.appdirect.com/rest/api/events/dummyOrder");
+		URL url = new URL("https://www.appdirect.com/rest/api/events/dummyChange");
 		HttpURLConnection request = (HttpURLConnection) url.openConnection();
 		consumer.sign(request);
 		request.connect();
@@ -82,6 +86,9 @@ public class EventServiceImpl implements EventService {
 		if (EventType.equals("SUBSCRIPTION_ORDER")) {
 			return CreateOrder(doc);
 		}
+		else if (EventType.equals("SUBSCRIPTION_CHANGE")) {
+			return ChangeOrder(doc);
+		}
 		else{
 			String message = "Event type "+EventType+" is not configured";
 			String result = String.format(ErrorTemplate, "CONFIGURATION_ERROR", message);
@@ -94,13 +101,10 @@ public class EventServiceImpl implements EventService {
 		// create companySubscription and appUser objects 
 		CompanySubscription companySubscription =  CreateCompanySubscription(doc);
 		AppUser appUser = CreateAppUser(doc, companySubscription);
-		
-		//return appUser.getFirstName()+companySubscription.getEdition();
 		// bind two objects 
-		
 		companySubscription.addAppUser(appUser);
 		appUser.setCompanySubscription(companySubscription);
-
+		// persist appUser
 		persistAppUser(appUser);
 		//String accountId = 
 		//persistCompanySubscription(companySubscription);
@@ -110,10 +114,23 @@ public class EventServiceImpl implements EventService {
 		//return appUser.toString()+companySubscription.toString();
 		
 		String accountId = appUser.getCompanySubscription().getCompanyId().toString();
-		String result = String.format("<result><success>true</success><accountIdentifier>%s</accountIdentifier></result>", accountId);
-		return result;
+		return String.format(resultxml, accountId);
+
+
+	}
+	
+	public String ChangeOrder(Document doc) {
+		// read the incoming xml accountId
+		String accountId = doc.getElementsByTagName("accountIdentifier").item(0).getTextContent();
+		// read the incoming xml edition
+		String newEdition = doc.getElementsByTagName("editionCode").item(0).getTextContent();
+		// get companysubscription by accountId
+		Query query = em.createQuery("SELECT cs FROM com.example.model.CompanySubscription cs WHERE cs.companyid == accountId");
+		// change the edition
 		
+		// persist new companysubscription transaction
 		
+		return String.format(resultxml, accountId);
 		
 	}
 	
