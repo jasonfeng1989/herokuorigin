@@ -75,7 +75,7 @@
 
 <div class="row">
   <div class="hero-unit" style="text-align:center">
-    <a href="http://herokuorigin.herokuapp.com/people/" class="btn btn-primary btn-large">Contacts</a>
+    <a href="people/" class="btn btn-primary btn-large">Contacts</a>
   </div>
 </div>
 
