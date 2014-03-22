@@ -74,7 +74,7 @@ public class SecurityOpenIDController {
             }  
 
          }
-         return "redirect:/index";
+         return "redirect:/index,jsp";
      
 	 }
 }
