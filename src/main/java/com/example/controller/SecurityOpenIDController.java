@@ -32,7 +32,7 @@ public class SecurityOpenIDController {
 	@RequestMapping(value="/login")
 	public void LoginHandler(@RequestParam("openid") String openid, UriComponentsBuilder builder,
 			HttpServletRequest httpReq, HttpServletResponse httpResp) throws Exception {
-		String returnUrl = builder.path("/openid/return123").build().toUriString();  
+		String returnUrl = builder.path("/openid/return").build().toUriString();  
 		List discoveries = manager.discover(openid);
 		DiscoveryInformation discovered = manager.associate(discoveries);
 		httpReq.getSession().setAttribute("openid-disc", discovered);
@@ -52,7 +52,7 @@ public class SecurityOpenIDController {
 	 }
 	 
 	@RequestMapping("return")
-	public Identifier verifyResponse(HttpServletRequest httpReq) throws Exception { 
+	public String verifyResponse(HttpServletRequest httpReq) throws Exception { 
 		ParameterList response = new ParameterList(httpReq.getParameterMap());
 		DiscoveryInformation discovered = (DiscoveryInformation) httpReq.getSession().getAttribute("openid-disc");  
 		StringBuffer receivingURL = httpReq.getRequestURL();
@@ -74,7 +74,7 @@ public class SecurityOpenIDController {
             }  
 
          }
-         return verified;
+         return "people";
      
 	 }
 }
