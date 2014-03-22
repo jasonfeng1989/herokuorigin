@@ -79,6 +79,4 @@ public class CompanySubscription {
 	public Set<AppUser> getUsers() {
 		return this.appUsers;
 	}
-
-
 }

@@ -37,13 +37,9 @@ import oauth.signpost.exception.OAuthMessageSignerException;
 @Service
 @Transactional
 public class EventServiceImpl implements EventService {
-	
-	
+
     @PersistenceContext
     EntityManager em;
-	
-	//static EntityManagerFactory emf = Persistence.createEntityManagerFactory("JPAService");
-	//static EntityManager em = emf.createEntityManager();
 	
 	private String ErrorTemplate = "<result>" +
 									"<success>false</success>"+
@@ -56,12 +52,6 @@ public class EventServiceImpl implements EventService {
 	public String FetchEvent(String token) throws Exception {
 		OAuthConsumer consumer = new DefaultOAuthConsumer("jasfengtestapp-7976", "FPBfHMuPPx5nN5Jq");
 		URL url = new URL("https://www.appdirect.com/rest/api/events/"+token);
-		
-		//URL url = new URL("https://www.appdirect.com/rest/api/events/dummyOrder");
-		//URL url = new URL("https://www.appdirect.com/rest/api/events/dummyChange");
-		//URL url = new URL("https://www.appdirect.com/rest/api/events/dummyCancel");
-		//URL url = new URL("https://www.appdirect.com/rest/api/events/dummyAssign");
-		//URL url = new URL("https://www.appdirect.com/rest/api/events/dummyUnassign");
 		HttpURLConnection request = (HttpURLConnection) url.openConnection();
 		consumer.sign(request);
 		request.connect();
@@ -122,7 +112,6 @@ public class EventServiceImpl implements EventService {
 	public String ChangeOrder(Document doc) {
 		// read the incoming xml accountId
 		String accountId = doc.getElementsByTagName("accountIdentifier").item(0).getTextContent();
-		//String accountId = "24";
 		// read the incoming xml edition
 		String newEdition = doc.getElementsByTagName("editionCode").item(0).getTextContent();
 		// get companysubscription by accountId
@@ -143,7 +132,6 @@ public class EventServiceImpl implements EventService {
 	public String CancelOrder (Document doc) {
 		// read the incoming xml accountId
 		String accountId = doc.getElementsByTagName("accountIdentifier").item(0).getTextContent();
-		//String accountId = "24";
 		// get companysubscription by accountId
 		CompanySubscription companySubscription = findCompanySubscription(Integer.parseInt(accountId));
 		// if not found
@@ -159,7 +147,6 @@ public class EventServiceImpl implements EventService {
 	public String AssignUser (Document doc) {
 		// read the incoming xml accountId
 		String accountId = doc.getElementsByTagName("accountIdentifier").item(0).getTextContent();
-		//String accountId = "22";
 		// get companysubscription by accountId
 		CompanySubscription companySubscription = findCompanySubscription(Integer.parseInt(accountId));
 		// if not found
@@ -195,7 +182,6 @@ public class EventServiceImpl implements EventService {
 		if (appUsers.isEmpty()) {
 			return String.format(ErrorTemplate, "USER_NOT_FOUND", openId);
 		}
-		//AppUser appUser = (AppUser) query.getSingleResult();
 		AppUser appUser = appUsers.get(0);
 		companySubscription.delAppUser(appUser);
 		// delete appUser
