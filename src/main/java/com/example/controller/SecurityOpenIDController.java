@@ -52,7 +52,6 @@ public class SecurityOpenIDController {
 	 }
 	 
 	@RequestMapping("return")
-	@ResponseBody
 	public String verifyResponse(HttpServletRequest httpReq) throws Exception { 
 		ParameterList response = new ParameterList(httpReq.getParameterMap());
 		DiscoveryInformation discovered = (DiscoveryInformation) httpReq.getSession().getAttribute("openid-disc");  
@@ -75,7 +74,7 @@ public class SecurityOpenIDController {
             }  
 
          }
-         return "people";
+         return "index";
      
 	 }
 }
