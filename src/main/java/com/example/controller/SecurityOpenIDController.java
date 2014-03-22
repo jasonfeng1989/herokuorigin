@@ -25,11 +25,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @Controller  
-@RequestMapping("openid")
+
 public class SecurityOpenIDController {
 	public final ConsumerManager manager = new ConsumerManager();  
 	
-	@RequestMapping(value="/login")
+	@RequestMapping(value="openid/login")
 	public void LoginHandler(@RequestParam("openid") String openid, UriComponentsBuilder builder,
 			HttpServletRequest httpReq, HttpServletResponse httpResp) throws Exception {
 		String returnUrl = builder.path("/openid/return").build().toUriString();  
@@ -51,7 +51,7 @@ public class SecurityOpenIDController {
 		 }
 	 }
 	 
-	@RequestMapping("return")
+	@RequestMapping("openid/return")
 	public String verifyResponse(HttpServletRequest httpReq) throws Exception { 
 		ParameterList response = new ParameterList(httpReq.getParameterMap());
 		DiscoveryInformation discovered = (DiscoveryInformation) httpReq.getSession().getAttribute("openid-disc");  
